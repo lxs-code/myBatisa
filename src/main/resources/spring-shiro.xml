@@ -41,11 +41,25 @@
         <property name="userBiz" ref="User"/>
     </bean>
 
+
+
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 
         <property name="realm" ref="userRealm"/>
     </bean>
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

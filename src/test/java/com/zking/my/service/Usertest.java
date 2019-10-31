@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Usertest extends  test21 {
@@ -51,9 +52,17 @@ public class Usertest extends  test21 {
 //        Set<String> strings = iUser.listRolesByUserName(user);
 
 //        Set<String> strings1 = sysUser.listPermissionsByUserName(user);
-        Set<SYSNode> SYS = sysUser.listRolesByUserName(user);
-        for (SYSNode ss:SYS) {
-            System.out.println(ss.getTreeNodeName());
-        }
+        SYSUser sysUser = this.sysUser.loadByUsername(user);
+        System.out.println(sysUser.getPassword());
+//        List<SYSNode> SYS = sysUser.listRolesByUserName(user);
+//for (SYSNode sss:SYS){
+//    System.out.println(sss.getTreeNodeName());
+//    System.out.println(sss.getTreeNodeId());
+//    List<SYSNode> nodes = sss.getNodes();
+//    for (SYSNode sd:nodes){
+//        System.out.println(sd.getTreeNodeName());
+//    }
+//
+//}
     }
 }

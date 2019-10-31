@@ -2,6 +2,8 @@ package com.zking.my.mapper;
 
 import com.zking.my.model.SYSNode;
 
+import java.util.List;
+
 public interface SYSNodeMapper {
     int deleteByPrimaryKey(Long treeNodeId);
 
@@ -14,4 +16,8 @@ public interface SYSNodeMapper {
     int updateByPrimaryKeySelective(SYSNode record);
 
     int updateByPrimaryKey(SYSNode record);
+
+
+
+    List<SYSNode> getNnods(Long treeNodeId);
 }

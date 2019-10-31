@@ -3,6 +3,7 @@ package com.zking.my.mapper;
 import com.zking.my.model.SYSNode;
 import com.zking.my.model.SYSUser;
 
+import java.util.List;
 import java.util.Set;
 
 public interface SYSUserMapper {
@@ -28,6 +29,11 @@ public interface SYSUserMapper {
      Set<String> listPermissionsByUserName(SYSUser user);
 
 
-     Set<SYSNode> listRolesByUserName(SYSUser user);
+    List<SYSNode> listRolesByUserName(SYSUser user);
+
+
+
+
+
 
 }

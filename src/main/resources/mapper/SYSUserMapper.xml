@@ -13,14 +13,13 @@
   </resultMap>
 
   <resultMap id="row" type="com.zking.my.model.SYSNode" >
-
-      <id column="tree_node_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <result column="tree_node_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <result column="tree_node_type" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <result column="parent_node_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <result column="url" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <result column="position" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <result column="icon" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <id column="tree_node_id"    property="treeNodeId"  jdbcType="BIGINT" javaType="java.lang.Long" />
+      <result column="tree_node_name"   property="treeNodeName"  jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="tree_node_type"  property="treeNodeType"    jdbcType="BIGINT" javaType="java.lang.Long" />
+      <result column="parent_node_id"   property="parentNodeId"    jdbcType="BIGINT" javaType="java.lang.Long" />
+      <result column="url"    property="url"          jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="position"      property="position"      jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="icon"     property="icon"           jdbcType="VARCHAR" javaType="java.lang.String" />
 
   </resultMap>
 
@@ -48,14 +47,11 @@ where r.available = 1 and u.username = #{username,jdbcType=VARCHAR};
 
   </select>
   <select id="listRolesByUserName" resultMap="row" parameterType="SYSUser">
-    select distinct p.tree_node_name,p.tree_node_type,p.url,p.parent_node_id
+    select distinct p.tree_node_name,p.tree_node_type,p.url,p.parent_node_id,p.tree_node_id
 from t_sys_user u inner join t_sys_user_role ur on u.user_id = ur.user_id inner join t_sys_role r on ur.role_id = r.role_id
   inner join t_role_tree rp on r.role_id = rp.rid inner join t_tree_node p on rp.nid = p.tree_node_id
 where  u.username = #{username,jdbcType=VARCHAR};
   </select>
-
-
-
 
 
 

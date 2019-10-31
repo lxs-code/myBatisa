@@ -2,6 +2,8 @@ package com.zking.my.model;
 
 import lombok.ToString;
 
+import java.util.List;
+
 @ToString
 public class SYSNode {
     private Long treeNodeId;
@@ -17,6 +19,15 @@ public class SYSNode {
     private String position;
 
     private String icon;
+    private List<SYSNode> nodes;
+
+    public List<SYSNode> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<SYSNode> nodes) {
+        this.nodes = nodes;
+    }
 
     public SYSNode(Long treeNodeId, String treeNodeName, Long treeNodeType, Long parentNodeId, String url, String position, String icon) {
         this.treeNodeId = treeNodeId;
