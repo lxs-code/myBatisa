@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.my.mapper.ContractMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.my.model.Contract" >
+    <constructor >
+      <idArg column="contract_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="admin_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="contract_content" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="contract_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    contract_id, admin_id, customer_id, contract_content, contract_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_contract
+    where contract_id = #{contractId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_contract
+    where contract_id = #{contractId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.my.model.Contract" >
+    insert into t_contract (contract_id, admin_id, customer_id, 
+      contract_content, contract_time)
+    values (#{contractId,jdbcType=BIGINT}, #{adminId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, 
+      #{contractContent,jdbcType=BIGINT}, #{contractTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.my.model.Contract" >
+    insert into t_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contractId != null" >
+        contract_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="contractContent != null" >
+        contract_content,
+      </if>
+      <if test="contractTime != null" >
+        contract_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contractId != null" >
+        #{contractId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="contractContent != null" >
+        #{contractContent,jdbcType=BIGINT},
+      </if>
+      <if test="contractTime != null" >
+        #{contractTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.my.model.Contract" >
+    update t_contract
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="contractContent != null" >
+        contract_content = #{contractContent,jdbcType=BIGINT},
+      </if>
+      <if test="contractTime != null" >
+        contract_time = #{contractTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where contract_id = #{contractId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.my.model.Contract" >
+    update t_contract
+    set admin_id = #{adminId,jdbcType=BIGINT},
+      customer_id = #{customerId,jdbcType=BIGINT},
+      contract_content = #{contractContent,jdbcType=BIGINT},
+      contract_time = #{contractTime,jdbcType=TIMESTAMP}
+    where contract_id = #{contractId,jdbcType=BIGINT}
+  </update>
+</mapper>

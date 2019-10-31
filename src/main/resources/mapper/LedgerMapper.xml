@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.my.mapper.LedgerMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.my.model.Ledger" >
+    <constructor >
+      <idArg column="ledger_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="admin_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="apply_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="start_time" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="end_time" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="defer_time" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="end_returntime" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="apply_money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="ledger_interest" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ledger_id, customer_id, admin_id, apply_id, start_time, end_time, defer_time, end_returntime, 
+    apply_money, ledger_interest
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_ledger
+    where ledger_id = #{ledgerId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_ledger
+    where ledger_id = #{ledgerId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.my.model.Ledger" >
+    insert into t_ledger (ledger_id, customer_id, admin_id, 
+      apply_id, start_time, end_time, 
+      defer_time, end_returntime, apply_money, 
+      ledger_interest)
+    values (#{ledgerId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{adminId,jdbcType=BIGINT}, 
+      #{applyId,jdbcType=BIGINT}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, 
+      #{deferTime,jdbcType=DATE}, #{endReturntime,jdbcType=DATE}, #{applyMoney,jdbcType=REAL}, 
+      #{ledgerInterest,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.my.model.Ledger" >
+    insert into t_ledger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ledgerId != null" >
+        ledger_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="deferTime != null" >
+        defer_time,
+      </if>
+      <if test="endReturntime != null" >
+        end_returntime,
+      </if>
+      <if test="applyMoney != null" >
+        apply_money,
+      </if>
+      <if test="ledgerInterest != null" >
+        ledger_interest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ledgerId != null" >
+        #{ledgerId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="deferTime != null" >
+        #{deferTime,jdbcType=DATE},
+      </if>
+      <if test="endReturntime != null" >
+        #{endReturntime,jdbcType=DATE},
+      </if>
+      <if test="applyMoney != null" >
+        #{applyMoney,jdbcType=REAL},
+      </if>
+      <if test="ledgerInterest != null" >
+        #{ledgerInterest,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.my.model.Ledger" >
+    update t_ledger
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=BIGINT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="deferTime != null" >
+        defer_time = #{deferTime,jdbcType=DATE},
+      </if>
+      <if test="endReturntime != null" >
+        end_returntime = #{endReturntime,jdbcType=DATE},
+      </if>
+      <if test="applyMoney != null" >
+        apply_money = #{applyMoney,jdbcType=REAL},
+      </if>
+      <if test="ledgerInterest != null" >
+        ledger_interest = #{ledgerInterest,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ledger_id = #{ledgerId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.my.model.Ledger" >
+    update t_ledger
+    set customer_id = #{customerId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      apply_id = #{applyId,jdbcType=BIGINT},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
+      defer_time = #{deferTime,jdbcType=DATE},
+      end_returntime = #{endReturntime,jdbcType=DATE},
+      apply_money = #{applyMoney,jdbcType=REAL},
+      ledger_interest = #{ledgerInterest,jdbcType=VARCHAR}
+    where ledger_id = #{ledgerId,jdbcType=BIGINT}
+  </update>
+</mapper>

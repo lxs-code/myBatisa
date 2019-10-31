@@ -37,12 +37,15 @@ String   sfz=null;
         JsonData jsonData = new JsonData();
         String detect = FaceDetect.detect(relpace);
         String aNull = detect.replace("null", "1");
+
+
+
         JSONObject json;
         json = JSONObject.fromObject(aNull);
 
         jsonData.setResult(json);
         jsonData.setMessage("成功");
-        jsonData.setCode(1);
+        jsonData.setCode(0);
 
 
         return jsonData;
@@ -57,10 +60,15 @@ String   sfz=null;
 
         JsonData jsonData = new JsonData();
         String   ss=Idcard.Idcard(relpace);
-        String aNull = ss.replace("null", "1");
+        String aNull = replace.relpace2(ss);
+        System.out.println(aNull);
+        JSONObject json;
+        json = JSONObject.fromObject(aNull);
+
+
         jsonData.setMessage("成功");
-        jsonData.setCode(1);
-        jsonData.setResult(ss);
+        jsonData.setCode(0);
+        jsonData.setResult(json);
 
         return jsonData;
     }
@@ -79,25 +87,13 @@ String   sfz=null;
 
 
         String aNull = ss.replace("null", "1");
+        JSONObject json;
+        json = JSONObject.fromObject(aNull);
         jsonData.setMessage("成功");
-        jsonData.setCode(1);
-        jsonData.setResult(ss);
-        System.out.println("xxx");
-        System.out.println("xxx");
-        System.out.println("xxx");
-        System.out.println("xxx");     System.out.println("xxx");     System.out.println("xxx");
-        System.out.println(sfz+123);
-        System.out.println("xxx");
-        System.out.println("xxx");
-        System.out.println("xxx");
-        System.out.println("xxx");     System.out.println("xxx");     System.out.println("xxx");
+        jsonData.setCode(0);
+        jsonData.setResult(json);
 
 
-        System.out.println(relpace2+123456);
-        System.out.println("xxx");
-        System.out.println("xxx");
-        System.out.println("xxx");
-        System.out.println("xxx");     System.out.println("xxx");     System.out.println("xxx");
         return jsonData;
     }
 

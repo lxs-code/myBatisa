@@ -15,4 +15,19 @@ public class replace {
         return sa ;
     }
 
+
+    public  static  String relpace2(String as){
+
+
+
+
+        String substring = as.replace("住址","address");
+        String      substring1=substring.replace("公民身份号码","code");
+        String     substring2=substring1.replace("出生","birth");
+        String    substring3=substring2.replace("姓名","name");
+        String    substring4=substring3.replace("性别","sex");
+        String    substring5=substring4.replace("民族","bation");
+        String    substring6=substring5.replace("null", "1");
+        return substring6 ;
+    }
 }

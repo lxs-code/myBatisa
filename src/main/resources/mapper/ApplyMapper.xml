@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.my.mapper.ApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.my.model.Apply" >
+    <constructor >
+      <idArg column="apply_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="product_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="admin_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="applt_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="approve_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="min_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="interest" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="per_money" jdbcType="REAL" javaType="java.lang.Float" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    apply_id, customer_id, product_id, admin_id, applt_time, approve_time, min_id, interest, 
+    per_money
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_apply
+    where apply_id = #{applyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_apply
+    where apply_id = #{applyId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.my.model.Apply" >
+    insert into t_apply (apply_id, customer_id, product_id, 
+      admin_id, applt_time, approve_time, 
+      min_id, interest, per_money
+      )
+    values (#{applyId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
+      #{adminId,jdbcType=BIGINT}, #{appltTime,jdbcType=TIMESTAMP}, #{approveTime,jdbcType=VARCHAR}, 
+      #{minId,jdbcType=INTEGER}, #{interest,jdbcType=VARCHAR}, #{perMoney,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.my.model.Apply" >
+    insert into t_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="appltTime != null" >
+        applt_time,
+      </if>
+      <if test="approveTime != null" >
+        approve_time,
+      </if>
+      <if test="minId != null" >
+        min_id,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="perMoney != null" >
+        per_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyId != null" >
+        #{applyId,jdbcType=BIGINT},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="appltTime != null" >
+        #{appltTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveTime != null" >
+        #{approveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="minId != null" >
+        #{minId,jdbcType=INTEGER},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="perMoney != null" >
+        #{perMoney,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.my.model.Apply" >
+    update t_apply
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="appltTime != null" >
+        applt_time = #{appltTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveTime != null" >
+        approve_time = #{approveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="minId != null" >
+        min_id = #{minId,jdbcType=INTEGER},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="perMoney != null" >
+        per_money = #{perMoney,jdbcType=REAL},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.my.model.Apply" >
+    update t_apply
+    set customer_id = #{customerId,jdbcType=BIGINT},
+      product_id = #{productId,jdbcType=BIGINT},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      applt_time = #{appltTime,jdbcType=TIMESTAMP},
+      approve_time = #{approveTime,jdbcType=VARCHAR},
+      min_id = #{minId,jdbcType=INTEGER},
+      interest = #{interest,jdbcType=VARCHAR},
+      per_money = #{perMoney,jdbcType=REAL}
+    where apply_id = #{applyId,jdbcType=BIGINT}
+  </update>
+</mapper>
