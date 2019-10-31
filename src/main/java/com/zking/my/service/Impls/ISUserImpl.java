@@ -40,9 +40,6 @@ public class ISUserImpl implements ISUser {
         List<SYSNode> sysNodes = sysuser.listRolesByUserName(user);
         for ( SYSNode ss :sysNodes) {
           List<SYSNode>  ssa= sysNodeMapper.getnode(ss.getTreeNodeId());
-
-
-
           ss.setNodes(ssa);
         }
 
