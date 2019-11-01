@@ -4,6 +4,9 @@ package com.zking.my.model;
 
 import java.util.Date;
 
+/**
+ * 客户
+ */
 public class Customer {
     private Long customerId;
 

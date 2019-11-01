@@ -22,6 +22,7 @@
     customer_id, customer_tel, customer_name, customer_password, customer_salt, customer_level, 
     customer_id_number, customer_id_address, customer_bank, customer_time
   </sql>
+    //
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>
