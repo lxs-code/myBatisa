@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class verification {
 
-
+//asdasdasdasd
     @RequestMapping("/yzm")
     @ResponseBody
     public JsonData yzm(String sjh){
