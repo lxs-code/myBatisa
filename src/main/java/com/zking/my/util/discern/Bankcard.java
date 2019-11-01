@@ -1,7 +1,5 @@
 package com.zking.my.util.discern;
 
-import com.zking.my.util.discenrnUtil.Base64Util;
-import com.zking.my.util.discenrnUtil.FileUtil;
 import com.zking.my.util.discenrnUtil.HttpUtil;
 
 import java.net.URLEncoder;
@@ -20,23 +18,25 @@ public class Bankcard {
      * https://ai.baidu.com/file/470B3ACCA3FE43788B5A963BF0B625F3
      * 下载
      */
-    public static void main(String[] args) {
+    public static String yhk(String Base64) {
         // 银行卡识别url
         String bankcardIdentificate = "https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard";
         // 本地图片路径
-        String filePath = "d:\\we.jpg";
+//        String filePath = "d:\\we.jpg";
+        String result=null;
         try {
-            byte[] imgData = FileUtil.readFileByBytes(filePath);
-            String imgStr = Base64Util.encode(imgData);
-            String params = URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(imgStr, "UTF-8");
+//            byte[] imgData = FileUtil.readFileByBytes(Base64);
+//            String imgStr = Base64Util.encode(imgData);
+            String params = URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(Base64, "UTF-8");
             /**
              * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
              */
             String accessToken = "24.804c7780062af147c613b3135e5da2c7.2592000.1574671918.282335-17598158";
-            String result = HttpUtil.post(bankcardIdentificate, accessToken, params);
-            System.out.println(result);
+             result = HttpUtil.post(bankcardIdentificate, accessToken, params);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
 }

@@ -7,6 +7,13 @@ import java.util.List;
 
 @Transactional
 public interface ISNode {
-
+    /**
+     * 获得菜单
+     * @param noid
+     * @return
+     */
     List<SYSNode>  getnode(Long noid);
+
+
+
 }

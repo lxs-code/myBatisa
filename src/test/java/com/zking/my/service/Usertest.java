@@ -1,15 +1,9 @@
 package com.zking.my.service;
 
-import com.zking.my.model.SYSNode;
 import com.zking.my.model.SYSUser;
-import com.zking.my.model.User;
 import com.zking.my.service.Borrowing.ISUser;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 public class Usertest extends  test21 {
 

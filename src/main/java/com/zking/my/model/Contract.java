@@ -1,5 +1,7 @@
 package com.zking.my.model;
 
+
+
 import java.util.Date;
 
 public class Contract {

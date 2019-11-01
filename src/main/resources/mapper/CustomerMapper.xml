@@ -1,89 +1,169 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zking.my.mapper.CustomerMapper" >
-  <resultMap id="BaseResultMap" type="com.zking.my.model.Customer" >
-    <constructor >
-      <idArg column="customer_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="customer_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-    </constructor>
-  </resultMap>
-
-  <resultMap id="o2m" type="com.zking.my.model.Customer">
-    <id column="customer_id" property="customerId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-    <result column="customer_name" property="customerName" jdbcType="VARCHAR"  javaType="java.lang.String" />
-    <collection property="orderList" ofType="com.zking.my.model.Order">
-
-        <id column="order_id" property="orderId" jdbcType="INTEGER" javaType="java.lang.Integer" />
-        <result column="order_no" property="orderNo" jdbcType="VARCHAR" javaType="java.lang.String" />
-        <result column="cid"  property="cid" jdbcType="INTEGER"  javaType="java.lang.Integer" />
-
-    </collection>
-
-
-
-  </resultMap>
-
-
-
-
-
-
-
-
-
-  <sql id="Base_Column_List" >
-    customer_id, customer_name
+<mapper namespace="com.zking.my.mapper.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.zking.my.model.Customer">
+        <constructor >
+            <idArg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+            <arg column="customer_tel" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_salt" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_level" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="customer_zname" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_age" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="customer_id_number" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_id_address" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_bank" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="customer_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    customer_id, customer_tel, customer_name, customer_password, customer_salt, customer_level, 
+    customer_id_number, customer_id_address, customer_bank, customer_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_customer
-    where customer_id = #{customerId,jdbcType=INTEGER}
-  </select>
-    <select id="loadCustomer" resultMap="o2m" parameterType="java.lang.Integer">
-    SELECT c.*,o.*
-    FROM T_customer c LEFT OUTER JOIN t_order o on c.customer_id=o.cid
-    where customer_id = #{customerId,jdbcType=INTEGER}
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_customer
+        where customer_id = #{customerId,jdbcType=BIGINT}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="namegetCust" resultMap="BaseResultMap" parameterType="customer">
+
+    select *  from t_customer where  customer_name= #{customerName,jdbcType=VARCHAR}
+
+
+    </select>
+    <select id="telgetCust" resultMap="BaseResultMap" parameterType="customer">
+   select *   from t_customer where  customer_tel=#{customerTel,jdbcType=VARCHAR}
+    </select>
+
+
+    <delete id="deleteByPrimaryKey"   parameterType="java.lang.Long">
     delete from t_customer
-    where customer_id = #{customerId,jdbcType=INTEGER}
+    where customer_id = #{customerId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.zking.my.model.Customer" >
-    insert into t_customer (customer_id, customer_name)
-    values (#{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="com.zking.my.model.Customer">
+    insert into t_customer (customer_id, customer_tel, customer_name, 
+      customer_password, customer_salt, customer_level, 
+      customer_id_number, customer_id_address, customer_bank, 
+      customer_time)
+    values (#{customerId,jdbcType=BIGINT}, #{customerTel,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerPassword,jdbcType=VARCHAR}, #{customerSalt,jdbcType=VARCHAR}, #{customerLevel,jdbcType=INTEGER}, 
+      #{customerIdNumber,jdbcType=VARCHAR}, #{customerIdAddress,jdbcType=VARCHAR}, #{customerBank,jdbcType=VARCHAR}, 
+      #{customerTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zking.my.model.Customer" >
-    insert into t_customer
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="customerId != null" >
-        customer_id,
-      </if>
-      <if test="customerName != null" >
-        customer_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="customerId != null" >
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="customerName != null" >
-        #{customerName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zking.my.model.Customer" >
+    <insert id="insertSelective" parameterType="com.zking.my.model.Customer">
+        insert into t_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="customerTel != null">
+                customer_tel,
+            </if>
+            <if test="customerName != null">
+                customer_name,
+            </if>
+            <if test="customerPassword != null">
+                customer_password,
+            </if>
+            <if test="customerSalt != null">
+                customer_salt,
+            </if>
+            <if test="customerLevel != null">
+                customer_level,
+            </if>
+            <if test="customerIdNumber != null">
+                customer_id_number,
+            </if>
+            <if test="customerIdAddress != null">
+                customer_id_address,
+            </if>
+            <if test="customerBank != null">
+                customer_bank,
+            </if>
+            <if test="customerTime != null">
+                customer_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="customerId != null">
+                #{customerId,jdbcType=BIGINT},
+            </if>
+            <if test="customerTel != null">
+                #{customerTel,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPassword != null">
+                #{customerPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="customerSalt != null">
+                #{customerSalt,jdbcType=VARCHAR},
+            </if>
+            <if test="customerLevel != null">
+                #{customerLevel,jdbcType=INTEGER},
+            </if>
+            <if test="customerIdNumber != null">
+                #{customerIdNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="customerIdAddress != null">
+                #{customerIdAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="customerBank != null">
+                #{customerBank,jdbcType=VARCHAR},
+            </if>
+            <if test="customerTime != null">
+                #{customerTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zking.my.model.Customer">
+        update t_customer
+        <set>
+            <if test="customerTel != null">
+                customer_tel = #{customerTel,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerPassword != null">
+                customer_password = #{customerPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="customerSalt != null">
+                customer_salt = #{customerSalt,jdbcType=VARCHAR},
+            </if>
+            <if test="customerLevel != null">
+                customer_level = #{customerLevel,jdbcType=INTEGER},
+            </if>
+            <if test="customerIdNumber != null">
+                customer_id_number = #{customerIdNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="customerIdAddress != null">
+                customer_id_address = #{customerIdAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="customerBank != null">
+                customer_bank = #{customerBank,jdbcType=VARCHAR},
+            </if>
+            <if test="customerTime != null">
+                customer_time = #{customerTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where customer_id = #{customerId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zking.my.model.Customer">
     update t_customer
-    <set >
-      <if test="customerName != null" >
-        customer_name = #{customerName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where customer_id = #{customerId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zking.my.model.Customer" >
-    update t_customer
-    set customer_name = #{customerName,jdbcType=VARCHAR}
-    where customer_id = #{customerId,jdbcType=INTEGER}
+    set customer_tel = #{customerTel,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_password = #{customerPassword,jdbcType=VARCHAR},
+      customer_salt = #{customerSalt,jdbcType=VARCHAR},
+      customer_level = #{customerLevel,jdbcType=INTEGER},
+      customer_id_number = #{customerIdNumber,jdbcType=VARCHAR},
+      customer_id_address = #{customerIdAddress,jdbcType=VARCHAR},
+      customer_bank = #{customerBank,jdbcType=VARCHAR},
+      customer_time = #{customerTime,jdbcType=TIMESTAMP}
+    where customer_id = #{customerId,jdbcType=BIGINT}
   </update>
 </mapper>

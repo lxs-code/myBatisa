@@ -1,5 +1,8 @@
 package com.zking.my.model;
 
+
+
+
 public class Product {
     private Long proId;
 

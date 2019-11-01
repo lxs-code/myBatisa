@@ -1,10 +1,8 @@
 package com.zking.my.model;
 
-
-
 import java.util.Date;
 
-public class Customer {
+public class Customers {
     private Long customerId;
 
     private String customerTel;
@@ -31,7 +29,7 @@ public class Customer {
 
     private Date customerTime;
 
-    public Customer(Long customerId, String customerTel, String customerName, String customerPassword, String customerSalt, Integer customerLevel, String customerZname, String customerSex, Integer customerAge, String customerIdNumber, String customerIdAddress, String customerBank, Date customerTime) {
+    public Customers(Long customerId, String customerTel, String customerName, String customerPassword, String customerSalt, Integer customerLevel, String customerZname, String customerSex, Integer customerAge, String customerIdNumber, String customerIdAddress, String customerBank, Date customerTime) {
         this.customerId = customerId;
         this.customerTel = customerTel;
         this.customerName = customerName;
@@ -47,7 +45,7 @@ public class Customer {
         this.customerTime = customerTime;
     }
 
-    public Customer() {
+    public Customers() {
         super();
     }
 

@@ -52,11 +52,11 @@
         <!-- type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象 -->
         <!-- type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象 -->
         <!-- type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口 -->
-        <javaClientGenerator targetPackage="com.zking.my.mapper"
-                             targetProject="src/main/java" type="XMLMAPPER">
-            <!-- 是否在当前路径下新加一层schema,false路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
-            <property name="enableSubPackages" value="false"/>
-        </javaClientGenerator>
+             <!--<javaClientGenerator targetPackage="com.zking.my.mapper"-->
+                             <!--targetProject="src/main/java" type="XMLMAPPER">-->
+            <!--&lt;!&ndash; 是否在当前路径下新加一层schema,false路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] &ndash;&gt;-->
+            <!--<property name="enableSubPackages" value="false"/>-->
+        <!--</javaClientGenerator>-->
 
         <!-- 配置表信息 -->
         <!-- schema即为数据库名 -->
@@ -144,12 +144,28 @@
         <!--<table schema="" tableName="t_repayment" domainObjectName="Repayment"-->
                <!--enableCountByExample="false" enableDeleteByExample="false"-->
                <!--enableSelectByExample="false" enableUpdateByExample="false">-->
+            <!-- 忽略列，不生成bean 字段 -->
+            <!-- <ignoreColumn column="FRED" /> -->
+            <!-- 指定列的java数据类型 -->
+            <!-- <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> -->
+        <!--</table>-->
+        <!--<table schema="" tableName="t_product" domainObjectName="Product"-->
+               <!--enableCountByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" enableUpdateByExample="false">-->
             <!--&lt;!&ndash; 忽略列，不生成bean 字段 &ndash;&gt;-->
             <!--&lt;!&ndash; <ignoreColumn column="FRED" /> &ndash;&gt;-->
             <!--&lt;!&ndash; 指定列的java数据类型 &ndash;&gt;-->
             <!--&lt;!&ndash; <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> &ndash;&gt;-->
         <!--</table>-->
-        <table schema="" tableName="t_product" domainObjectName="Product"
+        <!--<table schema="" tableName="t_dict" domainObjectName="Dict"-->
+               <!--enableCountByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" enableUpdateByExample="false">-->
+            <!--&lt;!&ndash; 忽略列，不生成bean 字段 &ndash;&gt;-->
+            <!--&lt;!&ndash; <ignoreColumn column="FRED" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; 指定列的java数据类型 &ndash;&gt;-->
+            <!--&lt;!&ndash; <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> &ndash;&gt;-->
+        <!--</table>-->
+        <table schema="" tableName="t_customer" domainObjectName="Customers"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false">
             <!-- 忽略列，不生成bean 字段 -->
@@ -157,13 +173,6 @@
             <!-- 指定列的java数据类型 -->
             <!-- <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> -->
         </table>
-        <table schema="" tableName="t_dict" domainObjectName="Dict"
-               enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" enableUpdateByExample="false">
-            <!-- 忽略列，不生成bean 字段 -->
-            <!-- <ignoreColumn column="FRED" /> -->
-            <!-- 指定列的java数据类型 -->
-            <!-- <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> -->
-        </table>
+
     </context>
 </generatorConfiguration>

@@ -1,5 +1,8 @@
 package com.zking.my.model;
 
+
+
+
 public class Dict {
     private Long dictId;
 

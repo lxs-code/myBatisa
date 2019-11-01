@@ -1,32 +1,22 @@
 package com.zking.my.controller;
 
 import com.zking.my.util.JsonData;
+import com.zking.my.util.discern.Bankcard;
 import com.zking.my.util.discern.FaceDetect;
 import com.zking.my.util.discern.FaceMatch;
 import com.zking.my.util.discern.Idcard;
 import com.zking.my.util.replace;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.logging.log4j.message.StringFormattedMessage;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 @Controller
 public class DiscernContriller {
 
 String   sfz=null;
 
-//    @RequestMapping("/sfz")
-//    @ResponseBody
-//    public JsonData  idcard(String Base1){
-//
-//
-//        return jsonData;
-//    }
+
 
     @RequestMapping("/facedetect")
     @ResponseBody
@@ -37,17 +27,11 @@ String   sfz=null;
         JsonData jsonData = new JsonData();
         String detect = FaceDetect.detect(relpace);
         String aNull = detect.replace("null", "1");
-
-
-
         JSONObject json;
         json = JSONObject.fromObject(aNull);
-
         jsonData.setResult(json);
         jsonData.setMessage("成功");
         jsonData.setCode(0);
-
-
         return jsonData;
     }
 
@@ -61,11 +45,8 @@ String   sfz=null;
         JsonData jsonData = new JsonData();
         String   ss=Idcard.Idcard(relpace);
         String aNull = replace.relpace2(ss);
-        System.out.println(aNull);
         JSONObject json;
         json = JSONObject.fromObject(aNull);
-
-
         jsonData.setMessage("成功");
         jsonData.setCode(0);
         jsonData.setResult(json);
@@ -96,6 +77,28 @@ String   sfz=null;
 
         return jsonData;
     }
+
+    //银行卡识别
+    @RequestMapping("/yhk")
+    @ResponseBody
+    public JsonData  yhk(String Base1){
+        System.out.println(Base1);
+        JsonData jsonData = new JsonData();
+
+        String relpace1 = replace.relpace(Base1);
+        String yhk = Bankcard.yhk(relpace1);
+        System.out.println(yhk);
+        String aNull = yhk.replace("null", "1");
+        JSONObject json;
+        json = JSONObject.fromObject(aNull);
+        jsonData.setMessage("成功");
+        jsonData.setCode(0);
+        jsonData.setResult(json);
+
+
+        return jsonData;
+    }
+
 
 
 }
