@@ -2,6 +2,9 @@ package com.zking.my.mapper;
 
 import com.zking.my.model.SYSRole;
 
+/**
+ * 角色
+ */
 public interface SYSRoleMapper {
     int deleteByPrimaryKey(Long roleId);
 
@@ -14,4 +17,5 @@ public interface SYSRoleMapper {
     int updateByPrimaryKeySelective(SYSRole record);
 
     int updateByPrimaryKey(SYSRole record);
+
 }

@@ -4,6 +4,9 @@ import com.zking.my.model.SYSNode;
 
 import java.util.List;
 
+/**
+ * 主菜单
+ */
 public interface SYSNodeMapper {
     int deleteByPrimaryKey(Long treeNodeId);
 
