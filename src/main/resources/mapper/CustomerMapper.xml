@@ -2,27 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zking.my.mapper.CustomerMapper">
     <resultMap id="BaseResultMap" type="com.zking.my.model.Customer">
-        <constructor >
-            <idArg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-            <arg column="customer_tel" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_name" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_password" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_salt" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_level" jdbcType="INTEGER" javaType="java.lang.Integer" />
-            <arg column="customer_zname" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_sex" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_age" jdbcType="INTEGER" javaType="java.lang.Integer" />
-            <arg column="customer_id_number" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_id_address" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_bank" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <constructor>
+            <idArg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+            <arg column="customer_tel" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_password" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_salt" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_level" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="customer_zname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_sex" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_age" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="customer_id_number" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_id_address" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_bank" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="customer_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
     customer_id, customer_tel, customer_name, customer_password, customer_salt, customer_level, 
     customer_id_number, customer_id_address, customer_bank, customer_time
   </sql>
-    //
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>
@@ -40,7 +40,15 @@
     </select>
 
 
-    <delete id="deleteByPrimaryKey"   parameterType="java.lang.Long">
+    <select id="list" resultMap="BaseResultMap" parameterType="customer">
+
+select  * from   t_customer where customer_name   like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
+
+
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_customer
     where customer_id = #{customerId,jdbcType=BIGINT}
   </delete>

@@ -1,8 +1,10 @@
 package com.zking.my.service.Borrowing;
 
 import com.zking.my.model.Customer;
+import com.zking.my.util.PageBean;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 @Transactional
 public interface ICustomer {
     /**
@@ -13,15 +15,16 @@ public interface ICustomer {
     int adduser(Customer user);
 
     /**
-     * 用户登录
+        * 用户登录
      * @param user
      * @return
-     */
+             */
     Customer longuser(Customer user);
 
 
 
 
+   List<Customer>  list(Customer user, PageBean pageBean);
 
 
 

@@ -2,6 +2,8 @@ package com.zking.my.mapper;
 
 import com.zking.my.model.Customer;
 
+import java.util.List;
+
 public interface CustomerMapper {
     int deleteByPrimaryKey(Long customerId);
 
@@ -20,4 +22,7 @@ public interface CustomerMapper {
     Customer   namegetCust(Customer record);
 
     Customer   telgetCust(Customer record);
+
+
+    List<Customer>   list(Customer record );
 }
