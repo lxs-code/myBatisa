@@ -35,8 +35,6 @@ public class ApplyContriller {
             jsonData.setCode(0);
         }
 
-
-
         return  jsonData;
     }
 
@@ -68,6 +66,25 @@ public  JsonData  getcount(){
     jsonData.setCode(0);
     return  jsonData;
 }
+
+
+    @RequestMapping("/feipei")
+    @ResponseBody
+    public  JsonData  feipei(Apply apply){
+        JsonData jsonData = new JsonData();
+        int upapply = iApple.upapply(apply);
+        if(upapply>0){
+            jsonData.setMessage("成功");
+            jsonData.setCode(0);
+        }else{
+            jsonData.setMessage("失败");
+            jsonData.setCode(1);
+        }
+
+//        jsonData.setResult(getcoun);
+
+        return  jsonData;
+    }
 
 
 

@@ -184,10 +184,13 @@ select count(min_id)  from    t_apply   where min_id=#{minId,jdbcType=INTEGER}
         interest = #{interest,jdbcType=VARCHAR},
       </if>
       <if test="perMoney != null" >
-        per_money = #{perMoney,jdbcType=REAL},
+      per_money = #{perMoney,jdbcType=REAL},
+    </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=REAL},
       </if>
     </set>
-    where apply_id = #{applyId,jdbcType=BIGINT}
+    where apply_id = #{applyId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zking.my.model.Apply" >
     update t_apply

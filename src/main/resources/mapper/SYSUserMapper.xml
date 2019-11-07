@@ -23,6 +23,14 @@
 
   </resultMap>
 
+
+  <resultMap id="role" type="com.zking.my.model.SYSRole" >
+      <id column="role_id" jdbcType="BIGINT" property="roleId" javaType="java.lang.Long" />
+      <result column="role_name" jdbcType="VARCHAR"  property="roleName" javaType="java.lang.String" />
+      <result column="available" jdbcType="INTEGER"  property="available" javaType="java.lang.Integer" />
+      <result column="description" jdbcType="VARCHAR" property="description" javaType="java.lang.String" />
+  </resultMap>
+
   <sql id="Base_Column_List" >
     user_id, username, password, salt, locked, create_datetime
   </sql>
@@ -32,19 +40,13 @@
     from t_sys_user
     where user_id = #{userId,jdbcType=BIGINT}
   </select>
-    <select id="GetUSER" resultType="SYSUser" parameterType="SYSUser">
+    <select id="GetUSER" resultMap="BaseResultMap" parameterType="SYSUser">
 select *  from   t_sys_user WHERE username= #{username,jdbcType=VARCHAR}
-
-
-
     </select>
-  <select id="listPermissionsByUserName" resultType="string" parameterType="SYSUser">
-
-select distinct r.role_name
+  <select id="listPermissionsByUserName" resultMap="role" parameterType="SYSUser">
+select distinct r.*
 from t_sys_user u inner join t_sys_user_role ur on u.user_id = ur.user_id inner join t_sys_role r on ur.role_id = r.role_id
-where r.available = 1 and u.username = #{username,jdbcType=VARCHAR};
-
-
+where r.available = 1 and u.username = #{username,jdbcType=VARCHAR}
   </select>
   <select id="listRolesByUserName" resultMap="row" parameterType="SYSUser">
     select distinct p.tree_node_name,p.tree_node_type,p.url,p.parent_node_id,p.tree_node_id

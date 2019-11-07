@@ -1,6 +1,7 @@
 package com.zking.my.controller;
 
 import com.zking.my.model.SYSNode;
+import com.zking.my.model.SYSRole;
 import com.zking.my.model.SYSUser;
 import com.zking.my.service.Borrowing.ISUser;
 import com.zking.my.shiro.PasswordHelper;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SysUserController {
@@ -29,10 +32,14 @@ public class SysUserController {
         SYSUser sysUser = isUser.loadByUsername(sysUser1);
         isUser.loadByUsername(sysUser);
         boolean b = PasswordHelper.checkCredentials(password, sysUser.getSalt(), sysUser.getPassword());
+        SYSRole sysRole = isUser.listPermissionsByUserName(sysUser);
+        Map<String,Object>  map=new HashMap<String,Object>();
         if(b){
+            map.put("role",sysRole);
+            map.put("sysUser",sysUser);
             jsonData.setCode(0);
             jsonData.setMessage("成功");
-            jsonData.setResult(sysUser);
+            jsonData.setResult(map);
         }else{
             jsonData.setCode(1);
             jsonData.setMessage("失败");

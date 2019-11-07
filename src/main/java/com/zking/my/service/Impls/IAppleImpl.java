@@ -62,4 +62,10 @@ public class IAppleImpl implements IApple {
         }
         return us;
     }
+
+
+    @Override
+    public int upapply(Apply apply) {
+        return applyMapper.updateByPrimaryKeySelective(apply);
+    }
 }

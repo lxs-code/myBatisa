@@ -24,4 +24,9 @@ public interface IApple {
 
 
     List<Ua>  getcoun();
+
+
+    int   upapply(Apply apply);
+
+
 }

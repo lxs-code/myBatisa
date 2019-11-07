@@ -1,10 +1,10 @@
 package com.zking.my.mapper;
 
 import com.zking.my.model.SYSNode;
+import com.zking.my.model.SYSRole;
 import com.zking.my.model.SYSUser;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 管理员
@@ -26,9 +26,7 @@ public interface SYSUserMapper {
     SYSUser GetUSER(SYSUser sysUser);
 
 
-
-
-     Set<String> listPermissionsByUserName(SYSUser user);
+    SYSRole listPermissionsByUserName(SYSUser user);
 
 
     List<SYSNode> listRolesByUserName(SYSUser user);
