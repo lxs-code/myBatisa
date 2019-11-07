@@ -1,8 +1,7 @@
 package com.zking.my.util.discern;
 
-import com.zking.my.util.discenrnUtil.Base64Util;
-import com.zking.my.util.discenrnUtil.FileUtil;
 import com.zking.my.util.discenrnUtil.HttpUtil;
+import com.zking.my.util.discenrnUtil.SslTest;
 
 import java.net.URLEncoder;
 
@@ -23,6 +22,18 @@ public class Idcard {
     public static String Idcard(String   base1) {
         // 身份证识别url
         String idcardIdentificate = "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard";
+
+
+
+
+
+        try {
+            SslTest st = new SslTest();
+            String a = st.getRequest( idcardIdentificate,3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // 本地图片路径
 //        String filePath = "d:\\s.jpg";
         String dds=null;

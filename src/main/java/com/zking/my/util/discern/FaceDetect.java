@@ -2,6 +2,7 @@ package com.zking.my.util.discern;
 
 import com.zking.my.util.discenrnUtil.GsonUtils;
 import com.zking.my.util.discenrnUtil.HttpUtil;
+import com.zking.my.util.discenrnUtil.SslTest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,10 +14,23 @@ public class FaceDetect {
         String result=null;
         // 请求url
         String url = "https://aip.baidubce.com/rest/2.0/face/v3/detect";
-        try {
-            String ss="D://6.jpg";
 
-            String location=ss.replace("//", "/");
+        try {
+            SslTest st = new SslTest();
+            String a = st.getRequest( url,3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+        try {
+//            String ss="D://6.jpg";
+//
+//            String location=ss.replace("//", "/");
             Map<String, Object> map = new HashMap<>();
             map.put("image", base64);
             map.put("face_field", "faceshape,facetype,beauty,eye_status");

@@ -1,10 +1,8 @@
 package com.zking.my.util.discern;
 
-import com.zking.my.util.discenrnUtil.Base64Util;
-import com.zking.my.util.discenrnUtil.FileUtil;
 import com.zking.my.util.discenrnUtil.GsonUtils;
 import com.zking.my.util.discenrnUtil.HttpUtil;
-import org.json.JSONObject;
+import com.zking.my.util.discenrnUtil.SslTest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +27,18 @@ public class FaceMatch {
         // 请求url
          String result=null;
         String url = "https://aip.baidubce.com/rest/2.0/face/v3/match";
+
+
+        try {
+            SslTest st = new SslTest();
+            String a = st.getRequest( url,3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
         try {
 
 

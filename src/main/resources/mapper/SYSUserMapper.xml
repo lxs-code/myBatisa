@@ -52,10 +52,14 @@ from t_sys_user u inner join t_sys_user_role ur on u.user_id = ur.user_id inner 
   inner join t_role_tree rp on r.role_id = rp.rid inner join t_tree_node p on rp.nid = p.tree_node_id
 where  u.username = #{username,jdbcType=VARCHAR};
   </select>
+    <select id="getcountname"  resultMap="BaseResultMap" parameterType="SYSUser">
+select sua.*  from    t_sys_user sua
+JOIN  t_sys_user_role  sur
+on  sua.user_id=sur.user_id    where  sur.role_id=#{userId,jdbcType=BIGINT}
+    </select>
 
 
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_sys_user
     where user_id = #{userId,jdbcType=BIGINT}
   </delete>

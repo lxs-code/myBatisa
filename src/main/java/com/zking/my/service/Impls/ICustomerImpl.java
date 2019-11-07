@@ -37,6 +37,11 @@ public class ICustomerImpl implements ICustomer {
 
 
     @Override
+    public int uploadcu(Customer customer) {
+        return customerMapper.updateByPrimaryKeySelective(customer);
+    }
+
+    @Override
     public List<Customer> list(Customer user, PageBean pageBean) {
 
         if (null != pageBean && pageBean.isPagination()) {

@@ -33,7 +33,7 @@ public interface SYSUserMapper {
 
     List<SYSNode> listRolesByUserName(SYSUser user);
 
-
+List<SYSUser> getcountname(Long roid);
 
 
 

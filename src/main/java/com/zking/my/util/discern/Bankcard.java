@@ -1,6 +1,7 @@
 package com.zking.my.util.discern;
 
 import com.zking.my.util.discenrnUtil.HttpUtil;
+import com.zking.my.util.discenrnUtil.SslTest;
 
 import java.net.URLEncoder;
 
@@ -20,18 +21,32 @@ public class Bankcard {
      */
     public static String yhk(String Base64) {
         // 银行卡识别url
+
         String bankcardIdentificate = "https://aip.baidubce.com/rest/2.0/ocr/v1/bankcard";
+        try {
+            SslTest st = new SslTest();
+            String a = st.getRequest( bankcardIdentificate,3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // 本地图片路径
-//        String filePath = "d:\\we.jpg";
+//        String filePath = "d:\\y.png";
         String result=null;
         try {
-//            byte[] imgData = FileUtil.readFileByBytes(Base64);
+//            byte[] imgData = FileUtil.readFileByBytes(filePath);
 //            String imgStr = Base64Util.encode(imgData);
             String params = URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(Base64, "UTF-8");
             /**
              * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
              */
             String accessToken = "24.804c7780062af147c613b3135e5da2c7.2592000.1574671918.282335-17598158";
+//            try {
+//                SslTest st = new SslTest();
+//                String a = st.getRequest(bankcardIdentificate, 3000);
+////                System.out.println(a);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
              result = HttpUtil.post(bankcardIdentificate, accessToken, params);
 
         } catch (Exception e) {
@@ -39,4 +54,6 @@ public class Bankcard {
         }
         return result;
     }
+
+
 }

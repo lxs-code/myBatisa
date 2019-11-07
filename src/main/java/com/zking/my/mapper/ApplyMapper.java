@@ -2,6 +2,8 @@ package com.zking.my.mapper;
 
 import com.zking.my.model.Apply;
 
+import java.util.List;
+
 public interface ApplyMapper {
     int deleteByPrimaryKey(Long applyId);
 
@@ -14,4 +16,11 @@ public interface ApplyMapper {
     int updateByPrimaryKeySelective(Apply record);
 
     int updateByPrimaryKey(Apply record);
-}
+
+
+
+    List<Apply>  getapply(Apply apply);
+
+int     getcount(Integer minid);
+
+ }

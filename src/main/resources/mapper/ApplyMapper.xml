@@ -7,13 +7,41 @@
       <arg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="product_id" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="admin_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="applt_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="applt_time" jdbcType="TIMESTAMP" javaType="java.lang.String" />
       <arg column="approve_time" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="min_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="interest" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="per_money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="total_money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="action" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
+
+  <resultMap type="com.zking.my.model.Apply" id="playerBean">
+    <result column="apply_id" property="applyId" />
+    <result column="customer_id" property="customerId" />
+    <result column="product_id" property="productId" />
+    <result column="admin_id" property="adminId" />
+    <result column="applt_time" property="appltTime" />
+    <result column="approve_time" property="approveTime" />
+    <result column="interest" property="interest" />
+    <result column="per_money" property="perMoney" />
+    <result column="total_money" property="totalMoney" />
+    <result column="money" property="money" />
+    <result column="min_id" property="minId" />
+    <result column="action" property="action" />
+    <result column="customer_zname" property="customer.customerZname" />
+    <result column="customer_tel" property="customer.customerTel" />
+    <result column="customer_id_number" property="customer.customerIdNumber" />
+
+  </resultMap>
+
+
+
+
+
+
   <sql id="Base_Column_List" >
     apply_id, customer_id, product_id, admin_id, applt_time, approve_time, min_id, interest, 
     per_money
@@ -24,6 +52,26 @@
     from t_apply
     where apply_id = #{applyId,jdbcType=BIGINT}
   </select>
+  <select id="getapply" resultMap="playerBean" parameterType="java.lang.String">
+select  ap.*,cu.customer_zname ,cu.customer_id_number,cu.customer_tel
+from t_apply   ap  join t_customer  cu  on ap.customer_id=cu.customer_id
+
+
+where cu.customer_zname  like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
+
+
+
+
+
+  order by applt_time desc
+  </select>
+  <select id="getcount" resultType="java.lang.Integer" parameterType="com.zking.my.model.Apply">
+
+select count(min_id)  from    t_apply   where min_id=#{minId,jdbcType=INTEGER}
+
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_apply
     where apply_id = #{applyId,jdbcType=BIGINT}
@@ -31,11 +79,11 @@
   <insert id="insert" parameterType="com.zking.my.model.Apply" >
     insert into t_apply (apply_id, customer_id, product_id, 
       admin_id, applt_time, approve_time, 
-      min_id, interest, per_money
+      min_id, interest, per_money,total_money,money
       )
     values (#{applyId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
       #{adminId,jdbcType=BIGINT}, #{appltTime,jdbcType=TIMESTAMP}, #{approveTime,jdbcType=VARCHAR}, 
-      #{minId,jdbcType=INTEGER}, #{interest,jdbcType=VARCHAR}, #{perMoney,jdbcType=REAL}
+      #{minId,jdbcType=INTEGER}, #{interest,jdbcType=VARCHAR}, #{perMoney,jdbcType=REAL},#{totalMoney,jdbcType=REAL},#{money,jdbcType=REAL}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zking.my.model.Apply" >
@@ -68,6 +116,12 @@
       <if test="perMoney != null" >
         per_money,
       </if>
+      <if test="totalMoney != null" >
+      total_money,
+    </if>
+      <if test="money != null" >
+        money,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="applyId != null" >
@@ -96,6 +150,12 @@
       </if>
       <if test="perMoney != null" >
         #{perMoney,jdbcType=REAL},
+      </if>
+      <if test="totalMoney != null" >
+        #{totalMoney,jdbcType=REAL},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=REAL},
       </if>
     </trim>
   </insert>

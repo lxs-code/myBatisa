@@ -2,7 +2,7 @@ package com.zking.my.model;
 
 import java.util.Date;
 
-public class Apply {
+public class Applys {
     private Long applyId;
 
     private Long customerId;
@@ -11,7 +11,7 @@ public class Apply {
 
     private Long adminId;
 
-    private String appltTime;
+    private Date appltTime;
 
     private String approveTime;
 
@@ -25,35 +25,14 @@ public class Apply {
 
     private Float money;
 
-    private   Customer  customer=new Customer();
-
-
-    private  String  customerName;
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     private Integer action;
 
-    public Apply(Long applyId, Long customerId, Long productId, Long adminId, Date appltTime, String approveTime, Integer minId, String interest, Float perMoney, Float totalMoney, Float money, Integer action) {
+    public Applys(Long applyId, Long customerId, Long productId, Long adminId, Date appltTime, String approveTime, Integer minId, String interest, Float perMoney, Float totalMoney, Float money, Integer action) {
         this.applyId = applyId;
         this.customerId = customerId;
         this.productId = productId;
         this.adminId = adminId;
-//        this.appltTime = appltTime;
+        this.appltTime = appltTime;
         this.approveTime = approveTime;
         this.minId = minId;
         this.interest = interest;
@@ -63,7 +42,7 @@ public class Apply {
         this.action = action;
     }
 
-    public Apply() {
+    public Applys() {
         super();
     }
 
@@ -99,11 +78,11 @@ public class Apply {
         this.adminId = adminId;
     }
 
-    public String getAppltTime() {
+    public Date getAppltTime() {
         return appltTime;
     }
 
-    public void setAppltTime(String appltTime) {
+    public void setAppltTime(Date appltTime) {
         this.appltTime = appltTime;
     }
 
@@ -161,4 +140,5 @@ public class Apply {
 
     public void setAction(Integer action) {
         this.action = action;
-    }}
+    }
+}

@@ -34,7 +34,11 @@ public class Customer {
 
     private Date customerTime;
 
-    public Customer(Long customerId, String customerTel, String customerName, String customerPassword, String customerSalt, Integer customerLevel, String customerZname, String customerSex, Integer customerAge, String customerIdNumber, String customerIdAddress, String customerBank, Date customerTime) {
+    private Double custmoerTotalMoney;
+
+    private Double custmoerConsumptionMoney;
+
+    public Customer(Long customerId, String customerTel, String customerName, String customerPassword, String customerSalt, Integer customerLevel, String customerZname, String customerSex, Integer customerAge, String customerIdNumber, String customerIdAddress, String customerBank, Date customerTime, Double custmoerTotalMoney, Double custmoerConsumptionMoney) {
         this.customerId = customerId;
         this.customerTel = customerTel;
         this.customerName = customerName;
@@ -48,6 +52,8 @@ public class Customer {
         this.customerIdAddress = customerIdAddress;
         this.customerBank = customerBank;
         this.customerTime = customerTime;
+        this.custmoerTotalMoney = custmoerTotalMoney;
+        this.custmoerConsumptionMoney = custmoerConsumptionMoney;
     }
 
     public Customer() {
@@ -156,5 +162,21 @@ public class Customer {
 
     public void setCustomerTime(Date customerTime) {
         this.customerTime = customerTime;
+    }
+
+    public Double getCustmoerTotalMoney() {
+        return custmoerTotalMoney;
+    }
+
+    public void setCustmoerTotalMoney(Double custmoerTotalMoney) {
+        this.custmoerTotalMoney = custmoerTotalMoney;
+    }
+
+    public Double getCustmoerConsumptionMoney() {
+        return custmoerConsumptionMoney;
+    }
+
+    public void setCustmoerConsumptionMoney(Double custmoerConsumptionMoney) {
+        this.custmoerConsumptionMoney = custmoerConsumptionMoney;
     }
 }

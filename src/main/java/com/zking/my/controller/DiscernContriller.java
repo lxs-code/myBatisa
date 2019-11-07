@@ -1,6 +1,7 @@
 package com.zking.my.controller;
 
 import com.zking.my.util.JsonData;
+import com.zking.my.util.discenrnUtil.Yinghang;
 import com.zking.my.util.discern.Bankcard;
 import com.zking.my.util.discern.FaceDetect;
 import com.zking.my.util.discern.FaceMatch;
@@ -26,11 +27,13 @@ String   sfz=null;
         sfz=relpace;
         JsonData jsonData = new JsonData();
         String detect = FaceDetect.detect(relpace);
+
         String aNull = detect.replace("null", "1");
         JSONObject json;
         json = JSONObject.fromObject(aNull);
+//        String getbi = getBetis.getbi(detect);
         jsonData.setResult(json);
-        jsonData.setMessage("成功");
+//        jsonData.setMessage(getbi);
         jsonData.setCode(0);
         return jsonData;
     }
@@ -77,26 +80,65 @@ String   sfz=null;
 
         return jsonData;
     }
+
 //asdssssssss
     //银行卡识别
     @RequestMapping("/yhk")
     @ResponseBody
     public JsonData  yhk(String Base1){
-        System.out.println(Base1);
         JsonData jsonData = new JsonData();
-
         String relpace1 = replace.relpace(Base1);
         String yhk = Bankcard.yhk(relpace1);
-        System.out.println(yhk);
         String aNull = yhk.replace("null", "1");
         JSONObject json;
         json = JSONObject.fromObject(aNull);
         jsonData.setMessage("成功");
         jsonData.setCode(0);
         jsonData.setResult(json);
-
-
         return jsonData;
+    }
+
+
+    /**
+     * 四要素
+     */
+    //银行卡识别
+    @RequestMapping("/sys")
+    @ResponseBody
+    public JsonData  sys(String name,String sfz,String sjh,String  ka) {
+        JsonData jsonData = new JsonData();
+        String yhk = sya(name, sfz, sjh, ka);
+        JSONObject json;
+        json = JSONObject.fromObject(yhk);
+jsonData.setCode(0);
+jsonData.setResult(json);
+
+        return  jsonData;
+    }
+
+
+    public     String   sya(String name,String sfz,String sjh,String  ka){
+         return Yinghang.yhk(name, sfz, sjh, ka);
+    }
+
+    /**
+     * 身份证
+     */
+    @RequestMapping("/sfz")
+    @ResponseBody
+    public JsonData  sfz(String name,String sfz){
+        JsonData jsonData = new JsonData();
+        String yhk=null;
+        yhk = Yinghang.sfz(name,sfz);
+
+
+        System.out.println(yhk);
+        JSONObject json;
+        json = JSONObject.fromObject(yhk);
+        jsonData.setCode(0);
+        jsonData.setResult(json);
+
+        return  jsonData;
     }
 
 

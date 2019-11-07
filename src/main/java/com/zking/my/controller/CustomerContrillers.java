@@ -101,10 +101,9 @@ public class CustomerContrillers {
         Customer customers = new Customer();
         JsonData jsonData = new JsonData();
         PageBean pageBean = new PageBean();
-        pageBean.setPage(2);
+        pageBean.setPage(1);
         customers.setCustomerName("");
         List<Customer> list = customerMappers.list(customers, pageBean);
-
         jsonData.setResult(list);
         jsonData.setTotal(pageBean.getTotal());
         jsonData.setRows(pageBean.getRows());
@@ -112,5 +111,25 @@ public class CustomerContrillers {
         jsonData.setMessage("登录成功");
         return jsonData;
     }
+
+    @RequestMapping("/cusm")
+    @ResponseBody
+    public   JsonData  sm(Customer customer){
+        System.out.println();
+        JsonData jsonData = new JsonData();
+        int uploadcu = customerMappers.uploadcu(customer);
+
+        if(uploadcu>0){
+            jsonData.setCode(0);
+            jsonData.setMessage("审核通过！");
+        }else{
+            jsonData.setMessage("审核失败！");
+            jsonData.setCode(-1);
+        }
+
+        return   jsonData;
+    }
+
+
 
 }

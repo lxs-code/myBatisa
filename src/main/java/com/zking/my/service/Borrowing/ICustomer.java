@@ -28,4 +28,10 @@ public interface ICustomer {
 
 
 
+   int    uploadcu(Customer customer);
+
+
+
+
+
 }
