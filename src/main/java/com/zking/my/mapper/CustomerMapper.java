@@ -25,4 +25,10 @@ public interface CustomerMapper {
 
 
     List<Customer>   list(Customer record );
+
+    List<Customer>  yz(Customer record);
+
+    List<Customer>  yz1(Customer record);
+
+
 }

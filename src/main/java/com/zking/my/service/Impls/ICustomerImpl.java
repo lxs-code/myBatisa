@@ -56,5 +56,15 @@ public class ICustomerImpl implements ICustomer {
         return list;
     }
 
+    @Override
+    public  List<Customer>getCustomer(Customer customer) {
 
+        return customerMapper.yz(customer);
+    }
+
+
+    @Override
+    public List<Customer> getCustomers(Customer customer) {
+        return customerMapper.yz1(customer);
+    }
 }

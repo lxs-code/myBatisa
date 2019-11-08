@@ -57,7 +57,7 @@ select  ap.*,cu.customer_zname ,cu.customer_id_number,cu.customer_tel
 from t_apply   ap  join t_customer  cu  on ap.customer_id=cu.customer_id
 
 
-where cu.customer_zname  like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
+where cu.customer_zname  like  concat('%',#{customerName,jdbcType=VARCHAR },'%')  and ap.action=0 and  ap.min_id=0
 
 
 
@@ -69,6 +69,12 @@ where cu.customer_zname  like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
 
 select count(min_id)  from    t_apply   where min_id=#{minId,jdbcType=INTEGER}
 
+  </select>
+  <select id="getapplymin" resultMap="playerBean" parameterType="com.zking.my.model.Apply">
+select  ap.*,cu.customer_zname ,cu.customer_id_number,cu.customer_tel
+from t_apply   ap  join t_customer  cu  on ap.customer_id=cu.customer_id
+where cu.customer_zname  like concat('%',#{customerName,jdbcType=VARCHAR },'%')   and  ap.min_id=#{minId,jdbcType=INTEGER}  and ap.action=0
+order by applt_time desc
   </select>
 
 

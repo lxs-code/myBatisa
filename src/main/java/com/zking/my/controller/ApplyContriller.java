@@ -86,6 +86,18 @@ public  JsonData  getcount(){
         return  jsonData;
     }
 
-
+    @RequestMapping("/getminall")
+    @ResponseBody
+    public  JsonData  getapply(Apply apply,PageBean pageBean){
+        JsonData jsonData = new JsonData();
+        List<Apply> getapplymin = iApple.getapplymin(apply,pageBean);
+        jsonData.setMessage("成功");
+        jsonData.setCode(0);
+        jsonData.setTotal(pageBean.getTotal());
+        jsonData.setRows(pageBean.getRows());
+        jsonData.setPage(pageBean.getPage());
+        jsonData.setResult(getapplymin);
+        return  jsonData;
+    }
 
 }

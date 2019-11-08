@@ -23,4 +23,7 @@ public interface ApplyMapper {
 
 int     getcount(Integer minid);
 
+
+List<Apply> getapplymin(Apply apply);
+
  }

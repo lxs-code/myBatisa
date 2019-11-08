@@ -48,6 +48,16 @@ select  * from   t_customer where customer_name   like  concat('%',#{customerNam
 
 
     </select>
+    <select id="yz" resultMap="BaseResultMap" parameterType="customer">
+
+select  * from   t_customer where customer_tel =#{customerTel,jdbcType=VARCHAR}
+
+    </select>
+    <select id="yz1"  resultMap="BaseResultMap" parameterType="customer">
+
+        select  * from   t_customer where customer_name =#{customerName,jdbcType=VARCHAR }
+
+    </select>
 
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

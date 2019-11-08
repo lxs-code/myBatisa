@@ -32,6 +32,7 @@ public interface ICustomer {
 
 
 
+    List<Customer> getCustomer(Customer customer);
 
-
+    List<Customer> getCustomers(Customer customer);
 }

@@ -31,6 +31,23 @@
       <result column="description" jdbcType="VARCHAR" property="description" javaType="java.lang.String" />
   </resultMap>
 
+
+  <select id="list"  resultMap="BaseResultMap" parameterType="com.zking.my.model.SYSUser">
+    select * from t_sys_user WHERE username   like  concat('%',#{username,jdbcType=VARCHAR },'%')
+  </select>
+
+  <update id="up"  parameterType="com.zking.my.model.SYSUser">
+    update t_sys_user
+    set username = #{username,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    salt = #{salt,jdbcType=VARCHAR},
+    locked = #{locked,jdbcType=INTEGER},
+    create_datetime = #{createDatetime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+
+  </update>
+
+
   <sql id="Base_Column_List" >
     user_id, username, password, salt, locked, create_datetime
   </sql>

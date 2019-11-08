@@ -68,4 +68,18 @@ public class IAppleImpl implements IApple {
     public int upapply(Apply apply) {
         return applyMapper.updateByPrimaryKeySelective(apply);
     }
+
+    @Override
+    public List<Apply> getapplymin(Apply apply, PageBean pageBean) {
+        if (null != pageBean && pageBean.isPagination()) {
+            PageHelper.startPage(pageBean.getPage(), pageBean.getRows());
+        }
+        List<Apply> list = applyMapper.getapplymin(apply);
+
+        if (null != pageBean && pageBean.isPagination()) {
+            PageInfo pageInfo = new PageInfo(list);
+            pageBean.setTotal(pageInfo.getTotal() + "");
+        }
+        return list;
+    }
 }

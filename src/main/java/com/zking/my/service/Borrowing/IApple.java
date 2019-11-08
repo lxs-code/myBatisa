@@ -28,5 +28,5 @@ public interface IApple {
 
     int   upapply(Apply apply);
 
-
+List<Apply> getapplymin(Apply apply,PageBean pageBean);
 }

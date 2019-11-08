@@ -6,6 +6,7 @@ import com.zking.my.model.SYSUser;
 import com.zking.my.service.Borrowing.ISUser;
 import com.zking.my.shiro.PasswordHelper;
 import com.zking.my.util.JsonData;
+import com.zking.my.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +63,49 @@ public class SysUserController {
             jsonData.setCode(0);
             jsonData.setMessage("成功");
             jsonData.setResult(sysNodes);
+        return jsonData;
+    }
+
+
+    @RequestMapping("/lists")
+    @ResponseBody
+    public JsonData list(SYSUser user,PageBean pageBean){
+
+        JsonData jsonData=new JsonData();
+
+        if(null==user.getUsername()||user.getUsername()==""){
+            user.setUsername("");
+        }
+        List<SYSUser>list = isUser.list(user,pageBean);
+        for (SYSUser user1:list){
+            System.out.println(user1.getLocked());
+        }
+
+        jsonData.setResult(list);
+        jsonData.setTotal(pageBean.getTotal());
+        jsonData.setRows(pageBean.getRows());
+        jsonData.setPage(pageBean.getPage());
+        jsonData.setCode(0);
+        jsonData.setMessage("成功");
+        return jsonData;
+    }
+
+    @RequestMapping("/up")
+    @ResponseBody
+    public JsonData up(SYSUser user){
+        JsonData jsonData=new JsonData();
+
+        int n =isUser.up(user);
+        if(n>0){
+            jsonData.setCode(0);
+            jsonData.setMessage("成功");
+
+        }else{
+            jsonData.setCode(1);
+            jsonData.setMessage("失败");
+        }
+
+
         return jsonData;
     }
 }

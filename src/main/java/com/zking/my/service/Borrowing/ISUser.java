@@ -3,6 +3,7 @@ package com.zking.my.service.Borrowing;
 import com.zking.my.model.SYSNode;
 import com.zking.my.model.SYSRole;
 import com.zking.my.model.SYSUser;
+import com.zking.my.util.PageBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,4 +29,13 @@ public interface ISUser {
 
     SYSRole listPermissionsByUserName(SYSUser user);//查询指定用户拥有的权限
     List<SYSNode> listRolesByUserName(SYSUser user);//查询指定用户拥有的角色
+
+
+
+
+    List<SYSUser> list(SYSUser user, PageBean pageBean);
+
+    List<SYSUser> getall(SYSUser user);
+
+    int up(SYSUser user);//修改
 }

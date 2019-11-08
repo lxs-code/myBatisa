@@ -34,6 +34,10 @@ public interface SYSUserMapper {
 List<SYSUser> getcountname(Long roid);
 
 
+    List<SYSUser> list(SYSUser user);
+
+    int up(SYSUser user);
+
 
 
 }

@@ -32,14 +32,26 @@ public class CustomerContrillers {
         customer.setCustomerSalt(salt);
         customer.setCustomerTel(tel);
         JsonData jsonData = new JsonData();
-        int i = customerMappers.adduser(customer);
-        if (i > 0) {
-            jsonData.setCode(0);
-            jsonData.setMessage("注册成功");
-        } else {
+
+        List<Customer> customer1 = customerMappers.getCustomer(customer);
+        if(customer1.size()!=0){
+            for (Customer customer2:customer1){
+                System.out.println(customer2.getCustomerTel());
+            }
+
             jsonData.setCode(1);
-            jsonData.setMessage("注册失败");
+            jsonData.setMessage("您在本平台已注册账号！");
+        }else{
+            int i = customerMappers.adduser(customer);
+            if (i > 0) {
+                jsonData.setCode(0);
+                jsonData.setMessage("注册成功");
+            } else {
+                jsonData.setCode(1);
+                jsonData.setMessage("注册失败");
+            }
         }
+
         return jsonData;
     }
 
@@ -58,8 +70,6 @@ public class CustomerContrillers {
         Customer longuser = customerMappers.longuser(customer);
 
         boolean b = PasswordHelper.checkCredentials(password1, longuser.getCustomerSalt(), longuser.getCustomerPassword());
-
-
         if (b) {
             jsonData.setResult(longuser);
             jsonData.setCode(0);
@@ -73,7 +83,7 @@ public class CustomerContrillers {
         return jsonData;
     }
 
-    //
+
     @RequestMapping("/Cutomelogintel")
     @ResponseBody
     public JsonData logintel(String tel) {
@@ -90,11 +100,8 @@ public class CustomerContrillers {
             jsonData.setCode(1);
             jsonData.setMessage("密码或用户名错误");
         }
-
-
         return jsonData;
     }
-
     @RequestMapping("/list")
     @ResponseBody
     public JsonData list(Customer customer) {
