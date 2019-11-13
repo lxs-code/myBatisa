@@ -15,19 +15,20 @@
             <arg column="customer_id_number" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="customer_id_address" jdbcType="VARCHAR" javaType="java.lang.String" />
             <arg column="customer_bank" jdbcType="VARCHAR" javaType="java.lang.String" />
-            <arg column="customer_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="customer_time" jdbcType="TIMESTAMP" javaType="java.lang.String" />
             <arg column="custmoer_total_money" jdbcType="DOUBLE" javaType="java.lang.Double" />
             <arg column="custmoer_consumption_money" jdbcType="DOUBLE" javaType="java.lang.Double" />
+            <arg column="custmoer_mode" jdbcType="VARCHAR" javaType="java.lang.String" />
         </constructor>
     </resultMap>
-    <sql id="Base_Column_List">
-    customer_id, customer_tel, customer_name, customer_password, customer_salt, customer_level, 
-    customer_id_number, customer_id_address, customer_bank, customer_time
+    <sql id="Base_Column_List" >
+    customer_id, customer_tel, customer_name, customer_password, customer_salt, customer_level,
+    customer_zname, customer_sex, customer_age, customer_id_number, customer_id_address,
+    customer_bank, customer_time, custmoer_total_money, custmoer_consumption_money, custmoer_mode
   </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List"/>
+        select  *
         from t_customer
         where customer_id = #{customerId,jdbcType=BIGINT}
     </select>
@@ -42,12 +43,55 @@
     </select>
 
 
+    <select id="selectSex" parameterType="long" resultType="long">
+        SELECT COUNT(customer_sex) FROM  t_customer where customer_sex='男'
+    </select>
+
+    <select id="selectSex1" parameterType="long" resultType="long">
+        SELECT COUNT(customer_sex) FROM  t_customer where customer_sex='女'
+    </select>
+    <select id="selectAge1"  parameterType="long" resultType="long">
+        SELECT
+        COUNT(customer_age) as '25以下' FROM  t_customer  where customer_age &lt;= 25
+    </select>
+    <select id="selectAge2"  parameterType="long" resultType="long">
+        SELECT
+        COUNT(customer_age) as '26-35' FROM  t_customer  where customer_age &gt;=26 and customer_age &lt;=35
+    </select>
+    <select id="selectAge3"  parameterType="long" resultType="long">
+        SELECT
+        COUNT(customer_age) as '26-35' FROM  t_customer  where customer_age &gt;=36 and customer_age &lt;=45
+    </select>
+    <select id="selectAge4"  parameterType="long" resultType="long">
+        SELECT
+        COUNT(customer_age) as '25以下' FROM  t_customer  where customer_age &gt;= 46
+    </select>
+
+
+
+
     <select id="list" resultMap="BaseResultMap" parameterType="customer">
 
 select  * from   t_customer where customer_name   like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
 
 
     </select>
+
+
+    <select id="list2" resultMap="BaseResultMap" resultType="com.zking.my.model.Customer">
+        select * from t_customer WHERE custmoer_mode=1 and  customer_name   like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
+    </select>
+
+    <select id="list1" resultMap="BaseResultMap" resultType="com.zking.my.model.Customer">
+        select * from t_customer WHERE custmoer_mode=0 and  customer_name  like  concat('%',#{customerName,jdbcType=VARCHAR },'%')
+    </select>
+
+    <update id="updeteMode" parameterType="com.zking.my.model.Customer">
+        UPDATE t_customer SET custmoer_mode = #{custmoerMode,jdbcType=VARCHAR} where customer_id = #{customerId,jdbcType=BIGINT}
+    </update>
+
+
+
     <select id="yz" resultMap="BaseResultMap" parameterType="customer">
 
 select  * from   t_customer where customer_tel =#{customerTel,jdbcType=VARCHAR}
@@ -182,6 +226,9 @@ select  * from   t_customer where customer_tel =#{customerTel,jdbcType=VARCHAR}
             </if>
             <if test="custmoerTotalMoney != null">
                 custmoer_total_money = #{custmoerTotalMoney,jdbcType=DOUBLE},
+            </if>
+            <if test="custmoerConsumptionMoney != null">
+                custmoer_consumption_money = #{custmoerConsumptionMoney,jdbcType=DOUBLE},
             </if>
         </set>
         where customer_id = #{customerId,jdbcType=BIGINT}

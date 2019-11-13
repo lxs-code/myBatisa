@@ -10,6 +10,30 @@
       <arg column="contract_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+
+
+
+  <resultMap id="row" type="com.zking.my.vo.ContractVo">
+    <result column="customer_zaname" property="cust.customerZname" />
+    <result column="customer_bank" property="cust.customerBank" />
+    <result column="apply_money" property="led.applyMoney" />
+    <result column="start_time" property="led.startTime" />
+    <result column="end_time" property="led.endTime" />
+    <result column="contract_time" property="con.contractTime" />
+  </resultMap>
+
+  <resultMap id="rows" type="com.zking.my.vo.ConTVo">
+    <id column="customer_id" property="customerId"  jdbcType="BIGINT" javaType="java.lang.Long" />
+    <result column="customer_zname" property="customerzname" jdbcType="VARCHAR"   javaType="java.lang.String" />
+    <result column="customer_bank"  property="customerBank" jdbcType="VARCHAR"  javaType="java.lang.String"/>
+    <result column="money" jdbcType="FLOAT" property="Money"  javaType="java.lang.Double" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" javaType="java.lang.Long"/>
+    <result column="apply_id" jdbcType="BIGINT" property="applyId" javaType="java.lang.Long"/>
+    <result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" javaType="java.lang.String" />
+  </resultMap>
+
+
+
   <sql id="Base_Column_Lists">
     contract_id, admin_id, customer_id, contract_content, contract_time
   </sql>
@@ -20,6 +44,27 @@
     from t_contract
     where contract_id = #{contractId,jdbcType=BIGINT}
   </select>
+
+
+
+
+  <select id="list"  parameterType="com.zking.my.vo.ConTVo" resultMap="rows">
+    select l.apply_id,cu.customer_id,cu.customer_zname,cu.customer_bank,l.money,l.product_id,c.contract_time
+    from t_contract c
+    LEFT JOIN t_customer cu on c.customer_id=cu.customer_id
+    LEFT JOIN t_apply l on c.customer_id=l.customer_id
+
+  </select>
+  <select id="list1" parameterType="com.zking.my.vo.ConTVo" resultMap="rows">
+    select l.apply_id,cu.customer_id,cu.customer_zname,cu.customer_bank,l.money,l.product_id,c.contract_time
+    from t_contract c
+    LEFT JOIN t_customer cu on c.customer_id=cu.customer_id
+    LEFT JOIN t_apply l on c.customer_id=l.customer_id
+    where l.action=2 and  l.apply_id = #{applyId,jdbcType=BIGINT}
+    order by applt_time desc
+  </select>
+
+
 
 
 </mapper>

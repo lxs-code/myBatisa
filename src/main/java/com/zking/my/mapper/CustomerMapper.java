@@ -31,4 +31,30 @@ public interface CustomerMapper {
     List<Customer>  yz1(Customer record);
 
 
+    long selectSex();
+
+    long selectSex1();
+
+    long selectAge1();
+    long selectAge2();
+    long selectAge3();
+    long selectAge4();
+
+
+
+
+    /**
+     * 查询
+     * @param cust
+     * @return
+     */
+    List<Customer> list2(Customer cust);
+
+    List<Customer> list1(Customer cust);
+
+    /**
+     * 修改状态
+     */
+    int updeteMode(Customer cust);
+
 }

@@ -4,10 +4,10 @@ import com.zking.my.util.discenrnUtil.GsonUtils;
 import com.zking.my.util.discenrnUtil.HttpUtil;
 import com.zking.my.util.discenrnUtil.SslTest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
 * 人脸对比
@@ -76,26 +76,50 @@ public class FaceMatch {
         return result;
     }
 
-    public static void main(String[] args) {
-//        String xsd = FaceMatch.match();
-//        JSONObject js =new JSONObject(xsd);
-//        Object object = js.get("result");
-//        String result =object.toString();
-//        JSONObject js1 =new JSONObject(result);
-//        Object object2 = js1.get("score");
-//        String xsdd =object2.toString();
-//        System.out.println(xsdd);
+    public static void main(String[] args) throws ParseException {
+//        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
 //
-//    	File file=new File("‪‪D:\\1.jpg");
-//    	System.out.println(file.exists());
-//    	if(!file.exists())
-//    {
-//        try {
-//            file.createNewFile();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//    }
-}
+//        java.util.Date beginDate= format.parse("2007-12-24");
+//
+//        java.util.Date endDate= format.parse("2007-12-25");
+//
+//        long day=(endDate.getTime()-beginDate.getTime())/(24*60*60*1000);
+//
+//        System.out.println("相隔的天数="+day);
+//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        Date d1 = df.parse("2019-10-10");
+//        Date d2 = df.parse("2000-11-19");
+//        long diff = d1.getTime() - d2.getTime();//这样得到的差值是微秒级别
+//        long days = diff / (1000 * 60 * 60 * 24);
+//        System.out.println(days/365);
+//        String da="20001213";
+////
+//        String n = da.substring(0, 4);
+//        String y = da.substring(4, 6);
+//        String r = da.substring(6, 8);
+//        System.out.println(n+"-"+y+"-"+r);
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        long days;
+        long day;
+        String sa = "20001209";
+        Date sb =  df.parse(sa);
+        DateFormat dfa = new SimpleDateFormat("yyyy-MM-dd");
+       String sc =  dfa.format(sb);
+//            String  d1 = df.format(new Date());
+//            Date d11 = df.parse(d1);
+//            Date d2 = df.parse(sa);
+//            long diff = d11.getTime() - d2.getTime();
+//            days = diff / (1000 * 60 * 60 * 24);
+//            day = days/365;
+
+        System.out.println(sc);
+//        DayCompare result = dayComparePrecise(fromDate, toDate);
+//        double month = result.getMonth();
+//        double year = result.getYear();
+//        //返回2位小数，并且四舍五入
+//        DecimalFormat df = new DecimalFormat("######0.0");
+//        return df.format(year + month / 12);
+
+
+    }
 }

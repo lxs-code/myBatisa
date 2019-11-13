@@ -29,4 +29,17 @@ public interface IApple {
     int   upapply(Apply apply);
 
 List<Apply> getapplymin(Apply apply,PageBean pageBean);
+
+
+
+Apply   getApply(Long appid);
+
+
+
+int  createAPPLY(Apply apply);
+
+
+
+List<Apply>  fj(Apply apply,PageBean pageBean);
+
 }

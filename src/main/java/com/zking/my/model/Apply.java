@@ -1,7 +1,5 @@
 package com.zking.my.model;
 
-import java.util.Date;
-
 public class Apply {
     private Long applyId;
 
@@ -25,10 +23,12 @@ public class Apply {
 
     private Float money;
 
-    private   Customer  customer=new Customer();
+    private Integer action;
 
 
-    private  String  customerName;
+
+    private   Customer customer;
+    private   String customerName;
 
     public String getCustomerName() {
         return customerName;
@@ -46,14 +46,12 @@ public class Apply {
         this.customer = customer;
     }
 
-    private Integer action;
-
-    public Apply(Long applyId, Long customerId, Long productId, Long adminId, Date appltTime, String approveTime, Integer minId, String interest, Float perMoney, Float totalMoney, Float money, Integer action) {
+    public Apply(Long applyId, Long customerId, Long productId, Long adminId, String appltTime, String approveTime, Integer minId, String interest, Float perMoney, Float totalMoney, Float money, Integer action) {
         this.applyId = applyId;
         this.customerId = customerId;
         this.productId = productId;
         this.adminId = adminId;
-//        this.appltTime = appltTime;
+        this.appltTime = appltTime;
         this.approveTime = approveTime;
         this.minId = minId;
         this.interest = interest;
@@ -161,4 +159,5 @@ public class Apply {
 
     public void setAction(Integer action) {
         this.action = action;
-    }}
+    }
+}

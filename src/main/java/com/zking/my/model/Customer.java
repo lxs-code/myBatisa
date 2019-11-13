@@ -1,9 +1,6 @@
 package com.zking.my.model;
 
 
-
-import java.util.Date;
-
 /**
  * 客户
  */
@@ -32,13 +29,15 @@ public class Customer {
 
     private String customerBank;
 
-    private Date customerTime;
+    private String customerTime;
 
     private Double custmoerTotalMoney;
 
     private Double custmoerConsumptionMoney;
 
-    public Customer(Long customerId, String customerTel, String customerName, String customerPassword, String customerSalt, Integer customerLevel, String customerZname, String customerSex, Integer customerAge, String customerIdNumber, String customerIdAddress, String customerBank, Date customerTime, Double custmoerTotalMoney, Double custmoerConsumptionMoney) {
+    private String custmoerMode;
+
+    public Customer(Long customerId, String customerTel, String customerName, String customerPassword, String customerSalt, Integer customerLevel, String customerZname, String customerSex, Integer customerAge, String customerIdNumber, String customerIdAddress, String customerBank, String customerTime, Double custmoerTotalMoney, Double custmoerConsumptionMoney, String custmoerMode) {
         this.customerId = customerId;
         this.customerTel = customerTel;
         this.customerName = customerName;
@@ -54,6 +53,7 @@ public class Customer {
         this.customerTime = customerTime;
         this.custmoerTotalMoney = custmoerTotalMoney;
         this.custmoerConsumptionMoney = custmoerConsumptionMoney;
+        this.custmoerMode = custmoerMode;
     }
 
     public Customer() {
@@ -156,11 +156,11 @@ public class Customer {
         this.customerBank = customerBank;
     }
 
-    public Date getCustomerTime() {
+    public String getCustomerTime() {
         return customerTime;
     }
 
-    public void setCustomerTime(Date customerTime) {
+    public void setCustomerTime(String customerTime) {
         this.customerTime = customerTime;
     }
 
@@ -178,5 +178,13 @@ public class Customer {
 
     public void setCustmoerConsumptionMoney(Double custmoerConsumptionMoney) {
         this.custmoerConsumptionMoney = custmoerConsumptionMoney;
+    }
+
+    public String getCustmoerMode() {
+        return custmoerMode;
+    }
+
+    public void setCustmoerMode(String custmoerMode) {
+        this.custmoerMode = custmoerMode;
     }
 }

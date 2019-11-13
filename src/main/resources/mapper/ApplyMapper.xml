@@ -37,6 +37,74 @@
 
   </resultMap>
 
+  <resultMap id="one" type="com.zking.my.model.shh.AppCusRole" >
+    <id column="apply_id" property="apply_id" jdbcType="BIGINT" javaType="java.lang.Integer" />
+    <result column="customer_id" property="customer_id"   jdbcType="BIGINT" javaType="java.lang.Integer" />
+    <result column="customer_name" property="customer_name"   jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="role_name"  property="role_name"   jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="money"  property="money"  jdbcType="FLOAT" javaType="java.lang.Double" />
+    <result column="pro_periods"  property="pro_periods"  jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <result column="customer_tel"  property="customer_tel"  jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="applt_time"  property="applt_time"  jdbcType="TIMESTAMP" javaType="java.lang.String" />
+    <result column="action"  property="action"  jdbcType="INTEGER" javaType="java.lang.String" />
+  </resultMap>
+
+
+
+  <resultMap id="one2" type="com.zking.my.model.shh.AppCusRoles" >
+    <id column="apply_id" property="apply_id" jdbcType="BIGINT" javaType="java.lang.Integer" />
+    <result column="customer_id" property="customer_id"   jdbcType="BIGINT" javaType="java.lang.Integer" />
+    <result column="customer_name" property="customer_name"   jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="username"  property="username"   jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="money"  property="money"  jdbcType="FLOAT" javaType="java.lang.Double" />
+    <result column="product_id"  property="product_id"  jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <result column="customer_tel"  property="customer_tel"  jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="applt_time"  property="applt_time"  jdbcType="TIMESTAMP" javaType="java.lang.String" />
+    <result column="action"  property="action"  jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <result column="customer_zname"  property="customer_zname"  jdbcType="VARCHAR" javaType="java.lang.String" />
+  </resultMap>
+
+
+
+  <resultMap id="rows" type="com.zking.my.vo.ConTVo">
+    <id column="customer_id" property="customerId"  jdbcType="BIGINT" javaType="java.lang.Long" />
+    <result column="customer_zname" property="customerzname" jdbcType="VARCHAR"   javaType="java.lang.String" />
+    <result column="customer_bank"  property="customerBank" jdbcType="VARCHAR"  javaType="java.lang.String"/>
+    <result column="money" jdbcType="FLOAT" property="Money"  javaType="java.lang.Double" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" javaType="java.lang.Long"/>
+    <result column="contract_time" property="contractTime" jdbcType="TIMESTAMP" javaType="java.lang.String" />
+  </resultMap>
+
+
+  <resultMap id="two" type="com.zking.my.model.shh.Repayment" >
+    <id column="repayment_id" property="repayment_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    <result column="customer_id" property="customer_id"   jdbcType="BIGINT" javaType="java.lang.Long" />
+    <result column="apply_id"  property="apply_id"   jdbcType="BIGINT" javaType="java.lang.Long" />
+    <result column="repayment_time" property="repayment_time"  jdbcType="DATE" javaType="java.lang.String" />
+    <result column="repayment_money" property="repayment_money"  jdbcType="FLOAT" javaType="java.lang.Float" />
+    <result column="residue_money"  property="residue_money"  jdbcType="FLOAT" javaType="java.lang.Float" />
+    <result column="admin_id"  property="admin_id"  jdbcType="BIGINT" javaType="java.lang.Long" />
+    <result column="customer_name"  property="customer_name"  jdbcType="VARCHAR" javaType="java.lang.String" />
+  </resultMap>
+
+
+  <resultMap id="san" type="com.zking.my.model.shh.Overdue" >
+    <id column="oid" property="oid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <result column="customer_id" property="customerId"   jdbcType="INTEGER" javaType="java.lang.Integer" />
+    <result column="customer_name"  property="customerName"   jdbcType="VARCHAR" javaType="java.lang.String" />
+    <result column="oresponse" property="oresponse"  jdbcType="DOUBLE" javaType="java.lang.Double" />
+    <result column="oresidue" property="oresidue"  jdbcType="DOUBLE" javaType="java.lang.Double" />
+    <result column="overdue"  property="overdue"  jdbcType="DOUBLE" javaType="java.lang.Double" />
+    <result column="onumber"  property="onumber"  jdbcType="VARCHAR" javaType="java.lang.String" />
+  </resultMap>
+
+  <resultMap id="four" type="com.zking.my.model.shh.Saa" >
+    <result column="ma"  property="ss"  jdbcType="BIGINT" javaType="java.lang.Integer" />
+  </resultMap>
+
+
+
+
 
 
 
@@ -46,9 +114,84 @@
     apply_id, customer_id, product_id, admin_id, applt_time, approve_time, min_id, interest, 
     per_money
   </sql>
+
+
+
+
+  <!--查询所有-->
+  <select id="select" resultMap="one2" parameterType="com.zking.my.model.shh.AppCusRoles" >
+ select a.customer_zname,b.apply_id,b.money,b.action,a.customer_id,a.customer_name,c.username,b.product_id,a.customer_tel,b.applt_time
+    from t_customer a
+    inner join t_apply b
+    on a.customer_id = b.customer_id
+    join  t_sys_user c
+    on b.min_id = c.user_id
+    WHERE action=1
+ and a.customer_zname  like  concat('%',#{customer_zname,jdbcType=VARCHAR },'%')
+   order by applt_time desc
+  </select>
+
+
+
+
+  <insert id="insertRep" parameterType="com.zking.my.model.shh.Repayment" >
+    insert into t_repayment (repayment_id, customer_id, apply_id,
+    repayment_time, repayment_money, residue_money,
+    ledger_id,repayment_times,apply_money,pro_periods )
+    values (#{repaymentId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{applyId,jdbcType=BIGINT},
+    #{repaymentTime,jdbcType=DATE}, #{repaymentMoney,jdbcType=REAL}, #{residueMoney,jdbcType=REAL},
+    #{ledger_id,jdbcType=BIGINT},#{repayment_times,jdbcType=DATE},
+    #{apply_money,jdbcType=FLOAT},#{pro_periods,jdbcType=BIGINT})
+  </insert>
+
+
+
+  <!--增加-->
+  <insert id="insertLed" parameterType="com.zking.my.model.shh.Ledger2" >
+    insert into t_ledger (ledger_id, customer_id, admin_id,
+    apply_id, start_time, end_time,
+    defer_time, end_returntime, apply_money,
+    ledger_interest)
+    values (#{ledgerId,jdbcType=BIGINT}, #{customerId,jdbcType=BIGINT}, #{adminId,jdbcType=BIGINT},
+    #{applyId,jdbcType=BIGINT}, #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE},
+    #{deferTime,jdbcType=DATE}, #{endReturntime,jdbcType=DATE}, #{applyMoney,jdbcType=REAL},
+    #{ledgerInterest,jdbcType=VARCHAR})
+  </insert>
+
+
+  <!--还款表-->
+  <select id="selectRep" resultMap="two" parameterType="com.zking.my.model.shh.Repayment" >
+    select a.*,b.customer_name from t_repayment a
+    inner join t_customer b
+    on a.customer_id = b.customer_id
+    where customer_name like  concat('%',#{customer_name,jdbcType=VARCHAR },'%')
+  </select>
+
+  <!--逾期表-->
+  <select id="selectOve" resultMap="san" parameterType="com.zking.my.model.shh.Overdue" >
+    select * from t_overdue
+  </select>
+
+  <select id="selectOvetwo" resultMap="san" parameterType="com.zking.my.model.shh.Overdue" >
+    select * from t_overdue where overdue >20
+  </select>
+
+  <select id="max" resultMap="four" parameterType="com.zking.my.model.shh.Saa"  >
+    select max(ledger_id)ma from t_ledger
+  </select>
+
+  <update id="upd" parameterType="com.zking.my.model.Apply" >
+    update t_apply
+    set action = #{action,jdbcType=BIGINT},SET total_money=
+    where apply_id = #{applyId,jdbcType=BIGINT}
+  </update>
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
-    <include refid="Base_Column_List" />
+*
     from t_apply
     where apply_id = #{applyId,jdbcType=BIGINT}
   </select>
@@ -58,10 +201,6 @@ from t_apply   ap  join t_customer  cu  on ap.customer_id=cu.customer_id
 
 
 where cu.customer_zname  like  concat('%',#{customerName,jdbcType=VARCHAR },'%')  and ap.action=0 and  ap.min_id=0
-
-
-
-
 
   order by applt_time desc
   </select>
@@ -76,6 +215,23 @@ from t_apply   ap  join t_customer  cu  on ap.customer_id=cu.customer_id
 where cu.customer_zname  like concat('%',#{customerName,jdbcType=VARCHAR },'%')   and  ap.min_id=#{minId,jdbcType=INTEGER}  and ap.action=0
 order by applt_time desc
   </select>
+  <select id="fj" resultMap="playerBean" parameterType="com.zking.my.model.Apply">
+select  ap.*,cu.customer_zname ,cu.customer_id_number,cu.customer_tel
+from t_apply   ap  join t_customer  cu  on ap.customer_id=cu.customer_id
+where cu.customer_zname  like concat('%',#{customerName,jdbcType=VARCHAR },'%')
+
+ and ap.action=#{action,jdbcType=REAL}
+
+
+order by applt_time desc
+  </select>
+
+
+
+
+
+
+
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >

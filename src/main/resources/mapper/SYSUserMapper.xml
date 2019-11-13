@@ -8,7 +8,7 @@
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="salt" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="locked" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="create_datetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="create_datetime" jdbcType="TIMESTAMP" javaType="java.lang.String" />
     </constructor>
   </resultMap>
 
@@ -76,8 +76,6 @@ select sua.*  from    t_sys_user sua
 JOIN  t_sys_user_role  sur
 on  sua.user_id=sur.user_id    where  sur.role_id=#{userId,jdbcType=BIGINT}
     </select>
-
-
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_sys_user
     where user_id = #{userId,jdbcType=BIGINT}

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.my.mapper.RepaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.my.model.shh.Repayment" >
+    <constructor >
+      <idArg column="repayment_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="customer_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="apply_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="ledger_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="repayment_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="repayment_times" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="repayment_money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="residue_money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="apply_money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="pro_periods" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+
+
+
+  <resultMap id="BaseResultMap2" type="com.zking.my.model.shh.Repayment" >
+      <id column="repayment_id"  property="repayment_id" />
+      <result column="customer_id" property="customerId"/>
+      <result column="apply_id" property="applyId" />
+      <result column="ledger_id" property="ledger_id" />
+      <result column="repayment_time" property="repayment_time" />
+      <result column="repayment_times"  property="repayment_times" />
+      <result column="repayment_money"  property="repayment_money" />
+      <result column="residue_money"  property="residue_money" />
+      <result column="apply_money"  property="apply_money" />
+      <result column="pro_periods"   property="pro_periods" />
+  </resultMap>
+
+
+
+
+  <sql id="Base_Column_List" >
+    repayment_id, customer_id, apply_id, ledger_id, repayment_time, repayment_times, 
+    repayment_money, residue_money, apply_money, pro_periods
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap2" parameterType="java.lang.Long" >
+    select 
+   *
+    from t_repayment
+    where repayment_id = #{repaymentId,jdbcType=BIGINT}
+  </select>
+  <select id="selectRepayment" resultMap="BaseResultMap2" parameterType="repayment">
+
+select * from t_repayment  where  repayment_times   is NULL  and  customer_id= #{customerId,jdbcType=BIGINT}
+
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_repayment
+    where repayment_id = #{repaymentId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zking.my.model.shh.Repayment" >
+    insert into t_repayment (customer_id, apply_id,
+      ledger_id, repayment_time, repayment_times, 
+      repayment_money, residue_money, apply_money, 
+      pro_periods)
+    values ( #{customerId,jdbcType=BIGINT}, #{apply_id,jdbcType=BIGINT},
+      #{ledger_id,jdbcType=INTEGER}, #{repayment_time,jdbcType=DATE}, #{repayment_times,jdbcType=DATE},
+      #{repayment_money,jdbcType=REAL}, #{residue_money,jdbcType=REAL}, #{apply_money,jdbcType=REAL},
+      #{pro_periods,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.my.model.shh.Repayment" >
+    insert into t_repayment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="apply_id != null" >
+        apply_id,
+      </if>
+      <if test="ledger_id != null" >
+        ledger_id,
+      </if>
+      <if test="repayment_time != null" >
+        repayment_time,
+      </if>
+      <if test="repayment_times != null" >
+        repayment_times,
+      </if>
+      <if test="repaymentMoney != null" >
+        repayment_money,
+      </if>
+      <if test="residueMoney != null" >
+        residue_money,
+      </if>
+      <if test="apply_id != null" >
+        apply_money,
+      </if>
+      <if test="pro_periods != null" >
+        pro_periods,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+      <if test="customerId != null" >
+        #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="apply_id != null" >
+        #{apply_id,jdbcType=BIGINT},
+      </if>
+      <if test="ledger_id != null" >
+        #{ledger_id,jdbcType=INTEGER},
+      </if>
+      <if test="repayment_time != null" >
+        #{repayment_time,jdbcType=DATE},
+      </if>
+      <if test="repayment_times != null" >
+        #{repayment_times,jdbcType=DATE},
+      </if>
+      <if test="repayment_money != null" >
+        #{repayment_money,jdbcType=REAL},
+      </if>
+      <if test="residueMoney != null" >
+        #{residueMoney,jdbcType=REAL},
+      </if>
+      <if test="apply_money != null" >
+        #{apply_money,jdbcType=REAL},
+      </if>
+      <if test="pro_periods != null" >
+        #{pro_periods,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.my.model.shh.Repayment" >
+    update t_repayment
+    <set >
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="apply_id != null" >
+        apply_id = #{applyId,jdbcType=BIGINT},
+      </if>
+      <if test="ledger_id != null" >
+        ledger_id = #{ledger_id,jdbcType=INTEGER},
+      </if>
+      <if test="repayment_time != null" >
+        repayment_time = #{repaymentTime,jdbcType=DATE},
+      </if>
+      <if test="repayment_times != null" >
+        repayment_times = #{repayment_times,jdbcType=DATE},
+      </if>
+      <if test="repayment_money != null" >
+        repayment_money = #{repayment_money,jdbcType=REAL},
+      </if>
+      <if test="residue_money != null" >
+        residue_money = #{residue_money,jdbcType=REAL},
+      </if>
+      <if test="apply_money != null" >
+        apply_money = #{apply_money,jdbcType=REAL},
+      </if>
+      <if test="pro_periods != null" >
+        pro_periods = #{pro_periods,jdbcType=INTEGER},
+      </if>
+    </set>
+    where repayment_id = #{repayment_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.my.model.shh.Repayment" >
+    update t_repayment
+    set customer_id = #{customerId,jdbcType=BIGINT},
+      apply_id = #{applyId,jdbcType=BIGINT},
+      ledger_id = #{ledgerId,jdbcType=INTEGER},
+      repayment_time = #{repaymentTime,jdbcType=DATE},
+      repayment_times = #{repaymentTimes,jdbcType=DATE},
+      repayment_money = #{repaymentMoney,jdbcType=REAL},
+      residue_money = #{residueMoney,jdbcType=REAL},
+      apply_money = #{applyMoney,jdbcType=REAL},
+      pro_periods = #{proPeriods,jdbcType=INTEGER}
+    where repayment_id = #{repaymentId,jdbcType=BIGINT}
+  </update>
+</mapper>

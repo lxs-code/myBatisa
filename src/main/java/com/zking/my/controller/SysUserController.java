@@ -31,10 +31,20 @@ public class SysUserController {
         sysUser1.setPassword(password);
 
         SYSUser sysUser = isUser.loadByUsername(sysUser1);
-        isUser.loadByUsername(sysUser);
-        boolean b = PasswordHelper.checkCredentials(password, sysUser.getSalt(), sysUser.getPassword());
-        SYSRole sysRole = isUser.listPermissionsByUserName(sysUser);
-        Map<String,Object>  map=new HashMap<String,Object>();
+
+       if(null==sysUser){
+           jsonData.setCode(1);
+           jsonData.setMessage("账户不存在");
+       }
+        else if(sysUser.getLocked()==1){
+            jsonData.setCode(1);
+            jsonData.setMessage("账户被锁定");
+        }
+        else{
+           isUser.loadByUsername(sysUser);
+           boolean b = PasswordHelper.checkCredentials(password, sysUser.getSalt(), sysUser.getPassword());
+           SYSRole sysRole = isUser.listPermissionsByUserName(sysUser);
+           Map<String,Object>  map=new HashMap<String,Object>();
         if(b){
             map.put("role",sysRole);
             map.put("sysUser",sysUser);
@@ -46,7 +56,7 @@ public class SysUserController {
             jsonData.setMessage("失败");
 
         }
-
+        }
         return jsonData;
     }
 

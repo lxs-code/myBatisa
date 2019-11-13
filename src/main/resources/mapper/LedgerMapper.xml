@@ -15,10 +15,78 @@
       <arg column="ledger_interest" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
+  <resultMap id="nd" type="com.zking.my.vo.LedgerVo">
+    <id column="ledger_id" property="ledgerId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="admin_id" property="adminId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="apply_id" property="applyId" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="start_time" property="startTime" jdbcType="DATE" javaType="java.util.Date"/>
+    <result column="end_time" property="endTime" jdbcType="DATE" javaType="java.util.Date"/>
+    <result column="defer_time" property="deferTime" jdbcType="DATE" javaType="java.util.Date"/>
+    <result column="end_returntime" property="endReturntime" jdbcType="DATE" javaType="java.util.Date"/>
+    <result column="apply_money" property="applyMoney" jdbcType="REAL" javaType="java.lang.Float"/>
+    <result column="ledger_interest" property="ledgerInterest" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    <result column="jan" property="jan" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="feb" property="feb" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="mar" property="mar" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="apr" property="apr" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="may" property="may" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="jun" property="jun" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="jul" property="jul" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="aug" property="aug" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="sep" property="sep" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="oct" property="oct" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="nov" property="nov" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="dec" property="dec" jdbcType="BIGINT" javaType="java.lang.Long"/>
+    <result column="total" property="total" jdbcType="BIGINT" javaType="java.lang.Long"/>
+  </resultMap>
+  <sql id="Base_Column_List">
     ledger_id, customer_id, admin_id, apply_id, start_time, end_time, defer_time, end_returntime, 
     apply_money, ledger_interest
   </sql>
+  <select id="selectqn" resultMap="nd" parameterType="com.zking.my.vo.LedgerVo">
+    SELECT
+    SUM(CASE WHEN MONTH(start_time ) =1 THEN apply_money  ELSE 0 END) jan,
+    SUM(CASE WHEN MONTH(start_time ) =2 THEN apply_money  ELSE 0 END) feb,
+    SUM(CASE WHEN MONTH(start_time ) =3 THEN apply_money  ELSE 0 END) mar,
+    SUM(CASE WHEN MONTH(start_time ) =4 THEN apply_money  ELSE 0 END) apr,
+    SUM(CASE WHEN MONTH(start_time ) =5 THEN apply_money  ELSE 0 END) may,
+    SUM(CASE WHEN MONTH(start_time ) =6 THEN apply_money  ELSE 0 END) jun,
+    SUM(CASE WHEN MONTH(start_time ) =7 THEN apply_money  ELSE 0 END) jul,
+    SUM(CASE WHEN MONTH(start_time ) =8 THEN apply_money  ELSE 0 END) aug,
+    SUM(CASE WHEN MONTH(start_time ) =9 THEN apply_money  ELSE 0 END) sep,
+    SUM(CASE WHEN MONTH(start_time ) =10 THEN apply_money  ELSE 0 END) oct,
+    SUM(CASE WHEN MONTH(start_time ) =11 THEN apply_money  ELSE 0 END) nov,
+    SUM(CASE WHEN MONTH(start_time ) =12 THEN apply_money  ELSE 0 END) 'dec',
+    SUM(apply_money ) total
+    FROM t_ledger
+    where start_time BETWEEN '2018-01-01' and '2018-12-31'
+  </select>
+  <select id="selectjn" resultMap="nd" parameterType="com.zking.my.vo.LedgerVo">
+    SELECT
+    SUM(CASE WHEN MONTH(start_time ) =1 THEN apply_money  ELSE 0 END) jan,
+    SUM(CASE WHEN MONTH(start_time ) =2 THEN apply_money  ELSE 0 END) feb,
+    SUM(CASE WHEN MONTH(start_time ) =3 THEN apply_money  ELSE 0 END) mar,
+    SUM(CASE WHEN MONTH(start_time ) =4 THEN apply_money  ELSE 0 END) apr,
+    SUM(CASE WHEN MONTH(start_time ) =5 THEN apply_money  ELSE 0 END) may,
+    SUM(CASE WHEN MONTH(start_time ) =6 THEN apply_money  ELSE 0 END) jun,
+    SUM(CASE WHEN MONTH(start_time ) =7 THEN apply_money  ELSE 0 END) jul,
+    SUM(CASE WHEN MONTH(start_time ) =8 THEN apply_money  ELSE 0 END) aug,
+    SUM(CASE WHEN MONTH(start_time ) =9 THEN apply_money  ELSE 0 END) sep,
+    SUM(CASE WHEN MONTH(start_time ) =10 THEN apply_money  ELSE 0 END) oct,
+    SUM(CASE WHEN MONTH(start_time ) =11 THEN apply_money  ELSE 0 END) nov,
+    SUM(CASE WHEN MONTH(start_time ) =12 THEN apply_money  ELSE 0 END) 'dec',
+    SUM(apply_money) total
+    FROM t_ledger
+    where start_time BETWEEN '2019-01-01' and '2019-12-31'
+  </select>
+
+
+
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

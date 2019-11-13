@@ -9,6 +9,9 @@ import com.zking.my.util.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,7 +40,33 @@ public class ICustomerImpl implements ICustomer {
 
 
     @Override
-    public int uploadcu(Customer customer) {
+    public int uploadcu(Customer customer){
+
+
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        Integer age =0;
+        int sa = customer.getCustomerAge();
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+        long days;
+        long day;
+        try{
+            Date d2 = df.parse(sa+"");
+            String sc =  df1.format(d2);//获取的年份
+
+            String  d1 = df.format(new Date());
+            Date d11 = df.parse(d1);
+
+          long diff = d11.getTime() - d2.getTime();
+          days = diff / (1000 * 60 * 60 * 24);
+          day = days/365;
+         age  = (int)day;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        customer.setCustomerAge(age);
+        //这样得到的差值是微秒级别
         return customerMapper.updateByPrimaryKeySelective(customer);
     }
 
@@ -66,5 +95,10 @@ public class ICustomerImpl implements ICustomer {
     @Override
     public List<Customer> getCustomers(Customer customer) {
         return customerMapper.yz1(customer);
+    }
+
+    @Override
+    public Customer getcustomer(Customer customer) {
+        return customerMapper.selectByPrimaryKey(customer.getCustomerId());
     }
 }

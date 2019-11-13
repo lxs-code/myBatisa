@@ -1,6 +1,9 @@
 package com.zking.my.mapper;
 
 import com.zking.my.model.Ledger;
+import com.zking.my.vo.LedgerVo;
+
+import java.util.List;
 
 public interface LedgerMapper {
     int deleteByPrimaryKey(Long ledgerId);
@@ -14,4 +17,10 @@ public interface LedgerMapper {
     int updateByPrimaryKeySelective(Ledger record);
 
     int updateByPrimaryKey(Ledger record);
+
+
+
+    List<LedgerVo> selectqn();
+
+    List<LedgerVo> selectjn();
 }

@@ -1,11 +1,13 @@
 package com.zking.my.model;
 
-
-
-import java.util.Date;
-
 public class Contract {
     private Long contractId;
+    private String  customerzname;
+    private String customerBank;
+    private double Money;
+    private String contractTime;
+    private Long productId;
+
 
     private Long adminId;
 
@@ -13,15 +15,52 @@ public class Contract {
 
     private Long contractContent;
 
-    private Date contractTime;
 
-    public Contract(Long contractId, Long adminId, Long customerId, Long contractContent, Date contractTime) {
+
+    public String getCustomerzname() {
+        return customerzname;
+    }
+
+    public void setCustomerzname(String customerzname) {
+        this.customerzname = customerzname;
+    }
+
+    private  Customer customer;
+    private   Apply apply;
+
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Apply getApply() {
+        return apply;
+    }
+
+    public void setApply(Apply apply) {
+        this.apply = apply;
+    }
+
+    public Contract(Long contractId, Long adminId, Long customerId, Long contractContent, String contractTime) {
         this.contractId = contractId;
         this.adminId = adminId;
         this.customerId = customerId;
         this.contractContent = contractContent;
         this.contractTime = contractTime;
     }
+
+    public Long getproductId() {
+        return productId;
+    }
+
+    public void setproductId(Long productId) {
+        this.productId = productId;
+    }
+
 
     public Contract() {
         super();
@@ -59,11 +98,28 @@ public class Contract {
         this.contractContent = contractContent;
     }
 
-    public Date getContractTime() {
+    public String getContractTime() {
         return contractTime;
     }
 
-    public void setContractTime(Date contractTime) {
+    public void setContractTime(String contractTime) {
         this.contractTime = contractTime;
+    }
+
+    public String  getcustomerBank() {
+        return customerBank;
+    }
+
+    public void setcustomerBank(String customerBank) {
+        this.customerBank = customerBank;
+    }
+
+
+    public double  getMoney() {
+        return Money;
+    }
+
+    public void setMoney(double Money) {
+        this.Money = Money;
     }
 }

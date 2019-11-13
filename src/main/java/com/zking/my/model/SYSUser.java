@@ -1,7 +1,5 @@
 package com.zking.my.model;
 
-import java.util.Date;
-
 public class SYSUser {
     private Long userId;
 
@@ -13,9 +11,9 @@ public class SYSUser {
 
     private Integer locked;
 
-    private Date createDatetime;
+    private String createDatetime;
 
-    public SYSUser(Long userId, String username, String password, String salt, Integer locked, Date createDatetime) {
+    public SYSUser(Long userId, String username, String password, String salt, Integer locked, String createDatetime) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -68,11 +66,11 @@ public class SYSUser {
         this.locked = locked;
     }
 
-    public Date getCreateDatetime() {
+    public String getCreateDatetime() {
         return createDatetime;
     }
 
-    public void setCreateDatetime(Date createDatetime) {
+    public void setCreateDatetime(String createDatetime) {
         this.createDatetime = createDatetime;
     }
 }

@@ -2,6 +2,7 @@ package com.zking.my.controller;
 
 import com.zking.my.model.Customer;
 import com.zking.my.service.Borrowing.ICustomer;
+import com.zking.my.service.ICust;
 import com.zking.my.shiro.PasswordHelper;
 import com.zking.my.util.JsonData;
 import com.zking.my.util.PageBean;
@@ -20,7 +21,10 @@ public class CustomerContrillers {
     @Autowired
     private ICustomer customerMappers;
 
+    @Autowired
+    private ICust CustImpl;
 
+    private Customer customer;
     @RequestMapping("/createCutome")
     @ResponseBody
     public JsonData createCutome(String cname, String passwerd, String tel) {
@@ -34,22 +38,26 @@ public class CustomerContrillers {
         JsonData jsonData = new JsonData();
 
         List<Customer> customer1 = customerMappers.getCustomer(customer);
+        List<Customer> customers = customerMappers.getCustomers(customer);
         if(customer1.size()!=0){
-            for (Customer customer2:customer1){
-                System.out.println(customer2.getCustomerTel());
-            }
-
             jsonData.setCode(1);
             jsonData.setMessage("您在本平台已注册账号！");
         }else{
-            int i = customerMappers.adduser(customer);
-            if (i > 0) {
-                jsonData.setCode(0);
-                jsonData.setMessage("注册成功");
-            } else {
+            if(customers.size()!=0){
                 jsonData.setCode(1);
-                jsonData.setMessage("注册失败");
+                jsonData.setMessage("用户名重复");
+            }else{
+                int i = customerMappers.adduser(customer);
+                if (i > 0) {
+                    jsonData.setCode(0);
+                    jsonData.setMessage("注册成功");
+                } else {
+                    jsonData.setCode(1);
+                    jsonData.setMessage("注册失败");
+                }
             }
+
+
         }
 
         return jsonData;
@@ -68,17 +76,27 @@ public class CustomerContrillers {
             customer.setCustomerName(username);
         }
         Customer longuser = customerMappers.longuser(customer);
+if(null!=longuser){
+if("0".equals(longuser.getCustmoerMode())){
+    jsonData.setCode(1);
+    jsonData.setMessage("账户被锁定！请联系客服");
+}else{
 
-        boolean b = PasswordHelper.checkCredentials(password1, longuser.getCustomerSalt(), longuser.getCustomerPassword());
-        if (b) {
-            jsonData.setResult(longuser);
-            jsonData.setCode(0);
-            jsonData.setMessage("登录成功");
-        } else {
-            jsonData.setCode(1);
-            jsonData.setMessage("密码或用户名错误");
-        }
+    boolean b = PasswordHelper.checkCredentials(password1, longuser.getCustomerSalt(), longuser.getCustomerPassword());
+    if (b) {
+        jsonData.setResult(longuser);
+        jsonData.setCode(0);
+        jsonData.setMessage("登录成功");
+    } else {
+        jsonData.setCode(1);
+        jsonData.setMessage("密码或用户名错误");
+    }
+}
 
+}else{
+    jsonData.setCode(1);
+    jsonData.setMessage("密码或用户名错误");
+}
 
         return jsonData;
     }
@@ -92,14 +110,25 @@ public class CustomerContrillers {
         Customer customer = new Customer();
         customer.setCustomerTel(tel);
         Customer longuser = customerMappers.longuser(customer);
-        if (null != longuser) {
-            jsonData.setResult(longuser);
-            jsonData.setCode(0);
-            jsonData.setMessage("登录成功");
-        } else {
+        if(null!=longuser) {
+            if ("0".equals(longuser.getCustmoerMode())) {
+                jsonData.setCode(1);
+                jsonData.setMessage("账户被锁定！请联系客服");
+            } else {
+                if (null != longuser) {
+                    jsonData.setResult(longuser);
+                    jsonData.setCode(0);
+                    jsonData.setMessage("登录成功");
+                } else {
+                    jsonData.setCode(1);
+                    jsonData.setMessage("密码或用户名错误");
+                }
+            }
+        }else{
             jsonData.setCode(1);
             jsonData.setMessage("密码或用户名错误");
         }
+
         return jsonData;
     }
     @RequestMapping("/list")
@@ -115,7 +144,7 @@ public class CustomerContrillers {
         jsonData.setTotal(pageBean.getTotal());
         jsonData.setRows(pageBean.getRows());
         jsonData.setCode(0);
-        jsonData.setMessage("登录成功");
+        jsonData.setMessage("成功");
         return jsonData;
     }
 
@@ -136,6 +165,66 @@ public class CustomerContrillers {
 
         return   jsonData;
     }
+
+    /**
+     * 查询所有
+     * @return
+     */
+    @RequestMapping("list32")
+    @ResponseBody
+    public JsonData list(Customer cust,PageBean pageBean){
+        JsonData jsonData=new JsonData();
+        if(null==cust.getCustomerName()||cust.getCustomerName()==""){
+            cust.setCustomerName("");
+        }
+        List<Customer>list = CustImpl.list2(cust,pageBean);
+        jsonData.setResult(list);
+        jsonData.setTotal(pageBean.getTotal());
+        jsonData.setRows(pageBean.getRows());
+        jsonData.setPage(pageBean.getPage());
+        jsonData.setCode(0);
+        jsonData.setMessage("成功");
+        return jsonData;
+    }
+
+    @RequestMapping("list121")
+    @ResponseBody
+    public JsonData list1(Customer cust,PageBean pageBean){
+        JsonData jsonData=new JsonData();
+        if(null==cust.getCustomerName()||cust.getCustomerName()==""){
+            cust.setCustomerName("");
+        }
+        List<Customer>list = CustImpl.list1(cust,pageBean);
+        jsonData.setResult(list);
+        jsonData.setTotal(pageBean.getTotal());
+        jsonData.setRows(pageBean.getRows());
+        jsonData.setPage(pageBean.getPage());
+        jsonData.setCode(0);
+        jsonData.setMessage("成功");
+        return jsonData;
+    }
+
+
+
+    /**
+     * 黑名单
+     */
+    @RequestMapping("updateCust")
+    @ResponseBody
+    public  JsonData updateCust(Customer cust){
+        JsonData jsonData = new JsonData();
+        int update = 0;
+        if (cust.getCustomerId()!=0&&cust.getCustomerId()==cust.getCustomerId()){
+            cust.setCustmoerMode("0");
+            update = CustImpl.updateCust(cust);
+        }
+        jsonData.setResult(update);
+        jsonData.setMessage("修改成功");
+        System.out.println(jsonData);
+        return jsonData;
+    }
+
+
 
 
 
