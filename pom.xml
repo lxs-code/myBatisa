@@ -187,7 +187,7 @@
     </dependency>
     <!--8)jackson相关依赖-->
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+        <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
       <exclusions>
@@ -247,7 +247,11 @@
       <artifactId>log4j-core</artifactId>
       <version>${log4j2.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.7</version>
+    </dependency>
     <!--web工程需要包含log4j-web，非web工程不需要 -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>

@@ -32,6 +32,37 @@ public class SysUserController {
 
         SYSUser sysUser = isUser.loadByUsername(sysUser1);
 
+
+
+//
+//        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+//        Subject subject = SecurityUtils.getSubject();
+//        String message = null;
+//        try {
+//            subject.login(token);
+//        } catch (UnknownAccountException e) {// 捕获未知用户名异常
+//            message = "帐号错误";
+//        } catch (LockedAccountException e) {// 捕获错误登录过多的异常
+//            message = "帐号已锁定，请与管理员联系";
+//        } catch (IncorrectCredentialsException e) {// 捕获密码错误异常
+//            message = "密码错误";
+//        } catch (ExcessiveAttemptsException e) {// 捕获错误登录过多的异常
+//            message = "多次登录尝试失败，请60秒后再试";
+//        }
+
+
+//        System.out.println(message);
+
+
+
+
+
+
+
+
+
+
+
        if(null==sysUser){
            jsonData.setCode(1);
            jsonData.setMessage("账户不存在");

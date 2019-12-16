@@ -1,7 +1,6 @@
 package com.zking.my.redis;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -26,10 +25,10 @@ public class RedisUtil {
     public RedisUtil() {
     }
 
-    @Autowired
-    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
+//    @Autowired
+//    public void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+//        this.redisTemplate = redisTemplate;
+//    }
 
     public RedisTemplate<String, Object> getRedisTemplate() {
         return redisTemplate;

@@ -18,4 +18,13 @@ public class getBetis {
 
         return rr;
     }
+
+    public static void main(String[] args) {
+        String strOrig = "qqqHello World!Hello World!";
+        int intIndex = strOrig.indexOf("Hello");
+        int lastIndex = strOrig.lastIndexOf("Hello");
+        CharSequence  cs="123";
+
+        System.out.println(lastIndex);
+    }
 }
