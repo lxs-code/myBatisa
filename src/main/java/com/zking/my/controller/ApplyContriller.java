@@ -55,7 +55,7 @@ public class ApplyContriller {
     @RequestMapping("/getapplyas")
     @ResponseBody
     public JsonData getapply(Apply apply,PageBean pageBean,String customerName){
-//        PageBean pageBean1=new PageBean();ad
+//        PageBean pageBean1=new PageBean();add
         JsonData jsonData = new JsonData();
 //
     List<Apply> apply1 = iApple.getApply(apply,pageBean);
